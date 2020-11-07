@@ -17,6 +17,7 @@ public class Administrador {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "id")
 	private Long CAdministrador;
 	
 	@Column(name="nombres_apellidos", length = 50, nullable=false)

@@ -42,8 +42,8 @@ public class Linea {
 	private int NumAnio;
 	
 	
-	@OneToOne(mappedBy = "cliente")
-	private Cliente Cliente;
+	@OneToOne(mappedBy = "linea")
+    private Cliente Cliente;
 	
 	
 	@ManyToOne

@@ -1,10 +1,12 @@
 package pe.upc.finanzas.entity;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
@@ -14,6 +16,7 @@ public class Cliente {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "id")
 	private Long CCliente;
 	
 	@Column(name="apellidos", length = 50, nullable=false)
@@ -31,8 +34,9 @@ public class Cliente {
 	@Column(name="estado_cliente", nullable=false)
 	private boolean BEstado;
 	
-	@OneToOne(mappedBy = "linea")
-	private Linea Linea;
+	@OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "linea_id", referencedColumnName = "id")
+    private Linea Linea;
 
 	
 	public Cliente() {
