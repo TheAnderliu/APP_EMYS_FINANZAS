@@ -1,9 +1,15 @@
 package pe.upc.finanzas.entity;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -12,11 +18,32 @@ public class Periodo_Tasa {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "id")
 	private Long CPeriodo_Tasa;
 	
+	@Column(name ="nombre_preiodo_tasa", nullable=false)
 	private String NPeriodo_Tasa;
 	
+	
+	@Column(name ="numero_periodo_tasa", nullable=false)
 	private int NumPeriodo_Tasa;
+	
+	@OneToMany(mappedBy = "Periodo_Tasa", cascade = CascadeType.ALL)
+	private List<Linea> LineaCreditos;
+
+	
+	
+	public Periodo_Tasa() {
+		LineaCreditos=new ArrayList<Linea>();
+	}
+
+	public List<Linea> getLineaCreditos() {
+		return LineaCreditos;
+	}
+
+	public void setLineaCreditos(List<Linea> lineaCreditos) {
+		LineaCreditos = lineaCreditos;
+	}
 
 	public Long getCPeriodo_Tasa() {
 		return CPeriodo_Tasa;
