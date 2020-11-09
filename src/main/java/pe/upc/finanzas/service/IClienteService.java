@@ -1,5 +1,11 @@
 package pe.upc.finanzas.service;
 
-public interface IClienteService {
+import java.util.Optional;
 
+import pe.upc.finanzas.entity.Cliente;
+
+public interface IClienteService extends CrudService<Cliente,Integer>{
+
+	Optional<Cliente> findByNumTelefono(int NumTelefono) throws Exception;
+	Optional<Cliente> findByNumDNI(String NumDNI) throws Exception;
 }

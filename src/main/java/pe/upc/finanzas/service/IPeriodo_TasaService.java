@@ -1,5 +1,7 @@
 package pe.upc.finanzas.service;
 
-public interface IPeriodo_TasaService {
+import pe.upc.finanzas.entity.Periodo_Tasa;
+
+public interface IPeriodo_TasaService extends CrudService<Periodo_Tasa,Integer> {
 
 }

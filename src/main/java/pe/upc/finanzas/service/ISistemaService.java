@@ -1,5 +1,7 @@
 package pe.upc.finanzas.service;
 
-public interface ISistemaService {
+import pe.upc.finanzas.entity.Sistema;
+
+public interface ISistemaService extends CrudService<Sistema, Integer> {
 
 }
