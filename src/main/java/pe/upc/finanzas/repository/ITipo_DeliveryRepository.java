@@ -6,6 +6,6 @@ import org.springframework.stereotype.Repository;
 import pe.upc.finanzas.entity.Tipo_Delivery;
 
 @Repository
-public interface ITipo_DeliveryRepository extends JpaRepository<Tipo_Delivery, Integer>{
+public interface ITipo_DeliveryRepository extends JpaRepository<Tipo_Delivery, Long>{
 
 }

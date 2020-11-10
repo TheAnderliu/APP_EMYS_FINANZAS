@@ -39,14 +39,14 @@ public class AdministradorService implements IAdministradorService, Serializable
 	}
 
 	@Override
-	public void deletedById(Integer id) {
+	public void deletedById(Long id) {
 		// TODO Auto-generated method stub
 		administradorRepository.deleteById(id);
 	}
 
 	@Transactional
 	@Override
-	public Optional<Administrador> findById(Integer id) throws Exception {
+	public Optional<Administrador> findById(Long id) throws Exception {
 		// TODO Auto-generated method stub
 		return administradorRepository.findById(id);
 	}

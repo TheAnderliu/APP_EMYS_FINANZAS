@@ -6,7 +6,7 @@ import java.util.List;
 import pe.upc.finanzas.entity.Linea;
 import pe.upc.finanzas.entity.Transaccion;
 
-public interface ITransaccionService extends CrudService<Transaccion, Integer>{
+public interface ITransaccionService extends CrudService<Transaccion, Long>{
 
 	List<Transaccion> findByDFecha(Date DFecha) throws Exception;
 	List<Transaccion> findByBTipo(boolean BTipo) throws Exception;

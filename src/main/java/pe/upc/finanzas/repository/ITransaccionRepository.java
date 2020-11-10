@@ -10,7 +10,7 @@ import pe.upc.finanzas.entity.Linea;
 import pe.upc.finanzas.entity.Transaccion;
 
 @Repository
-public interface ITransaccionRepository extends JpaRepository<Transaccion, Integer> {
+public interface ITransaccionRepository extends JpaRepository<Transaccion, Long> {
 
 	List<Transaccion> findByDFecha(Date DFecha) throws Exception;
 	List<Transaccion> findByBTipo(boolean BTipo) throws Exception;

@@ -8,7 +8,7 @@ import org.springframework.stereotype.Repository;
 import pe.upc.finanzas.entity.TipoMantenimiento;
 
 @Repository
-public interface ITipoMantenimientoRepository extends JpaRepository<TipoMantenimiento, Integer> {
+public interface ITipoMantenimientoRepository extends JpaRepository<TipoMantenimiento, Long> {
 
 	List<TipoMantenimiento> findByNTipoMantenimiento(String NTipoMantenimiento);
 }

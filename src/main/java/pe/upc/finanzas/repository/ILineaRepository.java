@@ -9,7 +9,7 @@ import org.springframework.stereotype.Repository;
 import pe.upc.finanzas.entity.Linea;
 
 @Repository
-public interface ILineaRepository extends JpaRepository<Linea, Integer>{
+public interface ILineaRepository extends JpaRepository<Linea, Long>{
 
 	List<Linea> findByDFechaEmision(Date DFechaEmision) throws Exception;
 }

@@ -6,6 +6,6 @@ import org.springframework.stereotype.Repository;
 import pe.upc.finanzas.entity.Sistema;
 
 @Repository
-public interface ISistemaRepository extends JpaRepository<Sistema, Integer> {
+public interface ISistemaRepository extends JpaRepository<Sistema, Long> {
 
 }

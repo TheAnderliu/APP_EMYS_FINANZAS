@@ -8,7 +8,7 @@ import org.springframework.stereotype.Repository;
 import pe.upc.finanzas.entity.Administrador;
 
 @Repository
-public interface IAdministradorRepository extends JpaRepository<Administrador, Integer>{
+public interface IAdministradorRepository extends JpaRepository<Administrador, Long>{
 
 	Optional<Administrador> findByNAdministrador(String NAdministrador) throws Exception;
 }

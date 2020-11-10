@@ -8,7 +8,7 @@ import org.springframework.stereotype.Repository;
 import pe.upc.finanzas.entity.Cliente;
 
 @Repository
-public interface IClienteRepository extends JpaRepository<Cliente, Integer>{
+public interface IClienteRepository extends JpaRepository<Cliente, Long>{
 
 	Optional<Cliente> findByNumTelefono(int NumTelefono) throws Exception;
 	Optional<Cliente> findByNumDNI(String NumDNI) throws Exception;

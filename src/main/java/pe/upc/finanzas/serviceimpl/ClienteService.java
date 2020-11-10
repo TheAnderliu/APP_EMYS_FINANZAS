@@ -37,14 +37,14 @@ public class ClienteService implements IClienteService, Serializable {
 	
 	@Transactional
 	@Override
-	public void deletedById(Integer id) {
+	public void deletedById(Long id) {
 		// TODO Auto-generated method stub
 		clienteRepository.deleteById(id);
 	}
 
 	@Transactional(readOnly = true)
 	@Override
-	public Optional<Cliente> findById(Integer id) throws Exception {
+	public Optional<Cliente> findById(Long id) throws Exception {
 		// TODO Auto-generated method stub
 		return clienteRepository.findById(id);
 	}

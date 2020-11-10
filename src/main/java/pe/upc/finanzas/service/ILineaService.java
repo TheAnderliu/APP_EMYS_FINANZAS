@@ -5,7 +5,7 @@ import java.util.List;
 
 import pe.upc.finanzas.entity.Linea;
 
-public interface ILineaService  extends CrudService<Linea, Integer>{
+public interface ILineaService  extends CrudService<Linea, Long>{
 
 	List<Linea> findByDFechaEmision(Date DFechaEmision) throws Exception;
 	

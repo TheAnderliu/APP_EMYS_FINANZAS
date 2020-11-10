@@ -8,7 +8,7 @@ import org.springframework.stereotype.Repository;
 import pe.upc.finanzas.entity.TipoMoneda;
 
 @Repository
-public interface ITipoMonedaRepository extends JpaRepository<TipoMoneda, Integer> {
+public interface ITipoMonedaRepository extends JpaRepository<TipoMoneda, Long> {
 	
 	List<TipoMoneda> findByNTipoMoneda(String NTipoMoneda);
 
