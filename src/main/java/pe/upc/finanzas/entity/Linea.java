@@ -1,5 +1,6 @@
 package pe.upc.finanzas.entity;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -25,7 +26,12 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
 @Table(name = "Linea")
-public class Linea {
+public class Linea implements Serializable {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -80,13 +86,13 @@ public class Linea {
 	
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name="tipo_tasa_id")
-	private Tipo_Tasa Tipo_Tasa;
+	private TipoTasa TipoTasa;
 	
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name="periodo_tasa_id")
 	private Periodo_Tasa Periodo_Tasa;
 
-	@OneToMany(mappedBy = "Linea", cascade = CascadeType.ALL)
+	@OneToMany(mappedBy = "linea", cascade = CascadeType.ALL)
 	private List<Transaccion> Transacciones;
 
 	public Linea() {
@@ -122,14 +128,14 @@ public class Linea {
 
 
 
-	public Tipo_Tasa getTipo_Tasa() {
-		return Tipo_Tasa;
+	public TipoTasa getTipo_Tasa() {
+		return TipoTasa;
 	}
 
 
 
-	public void setTipo_Tasa(Tipo_Tasa tipo_Tasa) {
-		Tipo_Tasa = tipo_Tasa;
+	public void setTipo_Tasa(TipoTasa tipo_Tasa) {
+		TipoTasa = tipo_Tasa;
 	}
 
 

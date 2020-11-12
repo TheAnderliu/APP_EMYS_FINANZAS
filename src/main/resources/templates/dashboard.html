@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>Dashboard - EMYS</title>
+    <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i">
+    <link rel="stylesheet" href="assets/fonts/fontawesome-all.min.css">
+    <link rel="stylesheet" href="assets/fonts/font-awesome.min.css">
+    <link rel="stylesheet" href="assets/fonts/material-icons.min.css">
+    <link rel="stylesheet" href="assets/fonts/fontawesome5-overrides.min.css">
+</head>
+
+<body id="page-top">
+    <div data-toggle="tooltip" data-bs-tooltip="" id="wrapper">
+        <nav class="navbar navbar-dark sticky-top d-flex d-lg-flex align-items-start align-items-lg-start sidebar sidebar-dark accordion bg-gradient-primary p-0">
+            <div class="container d-flex flex-column p-0">
+                <a class="navbar-brand d-flex justify-content-center align-items-center sidebar-brand m-0" href="#" style="font-size: 20px;color: rgb(231,37,13);background-color: #ffffff;">
+                    <div class="sidebar-brand-icon rotate-n-15"><img src="assets/img/emys2020-svg.svg" style="width: 31px;height: 31px;"></div>
+                    <div class="sidebar-brand-text mx-3"><span style="color: rgb(238,168,62);">EMYS</span></div>
+                </a>
+                <hr class="sidebar-divider my-0">
+                <ul class="nav navbar-nav text-light" id="accordionSidebar">
+                    <li class="nav-item" role="presentation"><a class="nav-link active" th:href="@{/dashboard}"><i class="fas fa-tachometer-alt"></i><span>Dashboard</span></a></li>
+                    <li class="nav-item" role="presentation"></li>
+                    <li class="nav-item" role="presentation"><a class="nav-link" th:href="@{/registrarlineadecredito}"><i class="fas fa-file-signature"></i><span>Registrar Línea de Crédito</span></a></li>
+                    <li class="nav-item" role="presentation"><a class="nav-link" th:href="@{/registrartransaccion}"><i class="material-icons">monetization_on</i><span>Registrar Transacción</span></a></li>
+                    <li class="nav-item" role="presentation"><a class="nav-link" th:href="@{/clientes}"><i class="fas fa-users" style="margin: -2px;"></i><span style="margin: 6px;">Clientes</span></a></li>
+                </ul>
+                <div class="text-center d-none d-md-inline"><button class="btn rounded-circle border-0" id="sidebarToggle" type="button"></button></div>
+            </div>
+        </nav>
+        <div id="content-wrapper">
+            <div id="content">
+                <nav class="navbar navbar-light navbar-expand bg-white shadow mb-4 topbar static-top">
+                    <div class="container-fluid"><button class="btn btn-link d-md-none rounded-circle mr-3" id="sidebarToggleTop" type="button"><i class="fas fa-bars"></i></button>
+                        <form class="form-inline d-none d-sm-inline-block mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
+                            <div class="input-group"><input class="bg-light form-control border-0 small" type="text" placeholder="Buscar...">
+                                <div class="input-group-append"><button class="btn btn-primary py-0" type="button"><i class="fas fa-search"></i></button></div>
+                            </div>
+                        </form>
+                        <ul class="nav navbar-nav flex-nowrap ml-auto">
+                            <li class="nav-item dropdown d-sm-none no-arrow"><a class="dropdown-toggle nav-link" data-toggle="dropdown" aria-expanded="false" href="#"><i class="fas fa-search"></i></a>
+                                <div class="dropdown-menu dropdown-menu-right p-3 animated--grow-in" role="menu" aria-labelledby="searchDropdown">
+                                    <form class="form-inline mr-auto navbar-search w-100">
+                                        <div class="input-group"><input class="bg-light form-control border-0 small" type="text" placeholder="Search for ...">
+                                            <div class="input-group-append"><button class="btn btn-primary py-0" type="button"><i class="fas fa-search"></i></button></div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </li>
+                            <div class="d-none d-sm-block topbar-divider"></div>
+                            <li class="nav-item dropdown no-arrow" role="presentation">
+                                <div class="nav-item dropdown show no-arrow"><a class="dropdown-toggle nav-link" data-toggle="dropdown" aria-expanded="true" href="#"><span class="d-none d-lg-inline mr-2 text-gray-600 small">Valerie Luna</span><i class="fa fa-user-circle" style="font-size: 26px;"></i></a>
+                                    <div
+                                        class="dropdown-menu show shadow dropdown-menu-right animated--grow-in" role="menu"><a class="dropdown-item" role="presentation" href="#"><i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>&nbsp;Cerrar sesión</a></div>
+                    </div>
+                    </li>
+                    </ul>
+            </div>
+            </nav>
+            <div class="container-fluid">
+                <div class="d-sm-flex justify-content-between align-items-center mb-4">
+                    <h3 class="text-dark mb-0">Dashboard</h3><a class="btn btn-primary btn-sm d-none d-sm-inline-block" role="button" href="#"><i class="fas fa-download fa-sm text-white-50"></i>&nbsp;Generar reporte</a></div>
+                <div class="row">
+                    <div class="col-md-6 col-xl-3 mb-4">
+                        <div class="card shadow border-left-primary py-2">
+                            <div class="card-body">
+                                <div class="row align-items-center no-gutters">
+                                    <div class="col mr-2">
+                                        <div class="text-uppercase text-primary font-weight-bold text-xs mb-1"><span>INGRESOS (DEL MES)</span></div>
+                                        <div class="text-dark font-weight-bold h5 mb-0"><span>S/40,000</span></div>
+                                    </div>
+                                    <div class="col-auto"><i class="fas fa-calendar fa-2x text-gray-300"></i></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-xl-3 mb-4">
+                        <div class="card shadow border-left-success py-2">
+                            <div class="card-body">
+                                <div class="row align-items-center no-gutters">
+                                    <div class="col mr-2">
+                                        <div class="text-uppercase text-success font-weight-bold text-xs mb-1"><span>Ingresos (DEL AÑO)</span></div>
+                                        <div class="text-dark font-weight-bold h5 mb-0"><span>S/215,000</span></div>
+                                    </div>
+                                    <div class="col-auto"><i class="fas fa-dollar-sign fa-2x text-gray-300"></i></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-xl-3 mb-4">
+                        <div class="card shadow border-left-warning py-2">
+                            <div class="card-body">
+                                <div class="row align-items-center no-gutters">
+                                    <div class="col mr-2">
+                                        <div class="text-uppercase text-warning font-weight-bold text-xs mb-1"><span>CLIENTES ACTUALES</span></div>
+                                        <div class="text-dark font-weight-bold h5 mb-0"><span>60</span></div>
+                                    </div>
+                                    <div class="col-auto"><i class="fas fa-user-friends fa-2x text-gray-300"></i></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-xl-3 mb-4">
+                        <div class="card shadow border-left-info py-2">
+                            <div class="card-body">
+                                <div class="row align-items-center no-gutters">
+                                    <div class="col mr-2">
+                                        <div class="text-uppercase text-info font-weight-bold text-xs mb-1"><span>CLIENTES DEUDORES</span></div>
+                                        <div class="row no-gutters align-items-center">
+                                            <div class="col-auto">
+                                                <div class="text-dark font-weight-bold h5 mb-0 mr-3"><span>5</span></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-auto"><i class="fas fa-user-clock fa-2x text-gray-300"></i></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="container-fluid">
+                <div class="card shadow">
+                    <div class="card-header py-3">
+                        <p class="text-primary m-0 font-weight-bold">Clientes deudores</p>
+                    </div>
+                    <div class="card-body">
+                        <div class="row d-xl-flex">
+                            <div class="col-6 col-sm-8 col-lg-4 col-xl-5 text-nowrap">
+                                <div id="dataTable_length" class="dataTables_length" aria-controls="dataTable"><label>Mostrar&nbsp;<select class="custom-select form-control form-control-sm custom-select custom-select-sm"><option value="10" selected="">10</option><option value="25">25</option><option value="50">50</option><option value="100">100</option></select>&nbsp;</label></div>
+                            </div>
+                            <div class="col-sm-8 col-md-auto col-lg-4 col-xl-4 text-nowrap d-flex d-lg-flex d-xl-flex align-items-start justify-content-lg-end align-items-xl-start">
+                                <div class="text-md-right dataTables_filter" id="dataTable_filter" style="width: 0px;height: 30px;"><label></label></div><label class="text-nowrap" style="height: 39px;">Desde&nbsp;</label><input class="border rounded" type="date" style="height: 31px;font-size: 14px;color: rgb(110,112,126);">
+                                <div class="btn-group" role="group"></div>
+                            </div>
+                            <div class="col-sm-8 col-lg-4 col-xl-auto text-nowrap">
+                                <div class="btn-group" role="group"></div><label>&nbsp;hasta&nbsp;</label><input class="border rounded" type="date" style="font-size: 14px;color: rgb(110,112,126);height: 31px;"></div>
+                            <div class="col-lg-12 col-xl-1 d-sm-flex align-items-sm-end justify-content-lg-end justify-content-xl-start align-items-xl-start">
+                                <div class="text-md-right d-xl-flex justify-content-xl-end dataTables_filter" id="dataTable_filter"><button class="btn btn-primary" type="button" style="padding-left: 16px;padding-right: 16px;margin-left: 0px;height: 36px;">Ver</button><label></label></div>
+                                <div class="btn-group" role="group"></div>
+                            </div>
+                        </div>
+                        <div class="table-responsive table mt-2" id="dataTable" role="grid" aria-describedby="dataTable_info">
+                            <table class="table dataTable my-0" id="dataTable">
+                                <thead>
+                                    <tr>
+                                        <th class="text-left" style="width: 76px;">ID</th>
+                                        <th style="width: 220px;">NOMBRES</th>
+                                        <th style="width: 220px;">APELLIDOS</th>
+                                        <th class="text-center" style="width: 137px;">DEUDA</th>
+                                        <th class="text-center" style="width: 163px;">MONEDA</th>
+                                        <th class="text-center" style="width: 218px;">ULTIMO DIA DE PAGO</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>1</td>
+                                        <td>Jorge Antonio</td>
+                                        <td>Terrones Huarcaya</td>
+                                        <td class="text-center">231</td>
+                                        <td class="text-center">SOLES</td>
+                                        <td class="text-center">20/10/2020</td>
+                                    </tr>
+                                    <tr>
+                                        <td>2</td>
+                                        <td>Aldo Anderson</td>
+                                        <td>Mendoza Marin</td>
+                                        <td class="text-center">785<br></td>
+                                        <td class="text-center">SOLES</td>
+                                        <td class="text-center">20/10/2020</td>
+                                    </tr>
+                                    <tr>
+                                        <td>3</td>
+                                        <td>Francis Bratzo</td>
+                                        <td>Valdivia Gutarra</td>
+                                        <td class="text-center">123<br></td>
+                                        <td class="text-center">SOLES</td>
+                                        <td class="text-center">20/10/2020</td>
+                                    </tr>
+                                    <tr>
+                                        <td>4</td>
+                                        <td>Francis Bratzo</td>
+                                        <td>Valdivia Gutarra</td>
+                                        <td class="text-center">123<br></td>
+                                        <td class="text-center">SOLES</td>
+                                        <td class="text-center">20/10/2020</td>
+                                    </tr>
+                                    <tr>
+                                        <td>5</td>
+                                        <td>Francis Bratzo</td>
+                                        <td>Valdivia Gutarra</td>
+                                        <td class="text-center">123<br></td>
+                                        <td class="text-center">SOLES</td>
+                                        <td class="text-center">20/10/2020</td>
+                                    </tr>
+                                    <tr>
+                                        <td>6</td>
+                                        <td>Francis Bratzo</td>
+                                        <td>Valdivia Gutarra</td>
+                                        <td class="text-center">123<br></td>
+                                        <td class="text-center">SOLES</td>
+                                        <td class="text-center">20/10/2020</td>
+                                    </tr>
+                                    <tr>
+                                        <td>7</td>
+                                        <td>Francis Bratzo</td>
+                                        <td>Valdivia Gutarra</td>
+                                        <td class="text-center">123<br></td>
+                                        <td class="text-center">SOLES</td>
+                                        <td class="text-center">20/10/2020</td>
+                                    </tr>
+                                    <tr>
+                                        <td>8</td>
+                                        <td>Francis Bratzo</td>
+                                        <td>Valdivia Gutarra</td>
+                                        <td class="text-center">123<br></td>
+                                        <td class="text-center">SOLES</td>
+                                        <td class="text-center">20/10/2020</td>
+                                    </tr>
+                                    <tr>
+                                        <td>9</td>
+                                        <td>Francis Bratzo</td>
+                                        <td>Valdivia Gutarra</td>
+                                        <td class="text-center">123<br></td>
+                                        <td class="text-center">SOLES</td>
+                                        <td class="text-center">20/10/2020</td>
+                                    </tr>
+                                    <tr>
+                                        <td>10</td>
+                                        <td>Francis Bratzo</td>
+                                        <td>Valdivia Gutarra</td>
+                                        <td class="text-center">123<br></td>
+                                        <td class="text-center">SOLES</td>
+                                        <td class="text-center">20/10/2020</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 align-self-center">
+                                <p id="dataTable_info" class="dataTables_info" role="status" aria-live="polite">Mostrando desde 1 hasta 10 de 27</p>
+                            </div>
+                            <div class="col-md-6">
+                                <nav class="d-lg-flex justify-content-lg-end dataTables_paginate paging_simple_numbers">
+                                    <ul class="pagination">
+                                        <li class="page-item disabled"><a class="page-link" href="#" aria-label="Previous"><span aria-hidden="true">«</span></a></li>
+                                        <li class="page-item active"><a class="page-link" href="#">1</a></li>
+                                        <li class="page-item"><a class="page-link" href="#">2</a></li>
+                                        <li class="page-item"><a class="page-link" href="#">3</a></li>
+                                        <li class="page-item"><a class="page-link" href="#" aria-label="Next"><span aria-hidden="true">»</span></a></li>
+                                    </ul>
+                                </nav>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div><a class="border rounded d-inline scroll-to-top" href="#page-top"><i class="fas fa-angle-up"></i></a></div>
+    <script src="assets/js/jquery.min.js"></script>
+    <script src="assets/bootstrap/js/bootstrap.min.js"></script>
+    <script src="assets/js/bs-init.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.js"></script>
+    <script src="assets/js/theme.js"></script>
+</body>
+
+</html>

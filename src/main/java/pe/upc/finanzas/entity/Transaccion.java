@@ -1,5 +1,6 @@
 package pe.upc.finanzas.entity;
 
+import java.io.Serializable;
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -19,8 +20,14 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
 @Table(name = "Transaccion")
-public class Transaccion {
+public class Transaccion implements Serializable{
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id")
@@ -48,7 +55,7 @@ public class Transaccion {
 	
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name="linea_id")
-	private Linea Linea;
+	private Linea linea;
 
 	
 	public Tipo_Delivery getTipo_Delivery() {
@@ -59,12 +66,13 @@ public class Transaccion {
 		Tipo_Delivery = tipo_Delivery;
 	}
 
+	
 	public Linea getLinea() {
-		return Linea;
+		return linea;
 	}
 
 	public void setLinea(Linea linea) {
-		Linea = linea;
+		this.linea = linea;
 	}
 
 	public Long getCTransacción() {

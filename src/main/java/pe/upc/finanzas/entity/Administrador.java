@@ -1,5 +1,6 @@
 package pe.upc.finanzas.entity;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,10 +17,16 @@ import javax.validation.constraints.NotEmpty;
 
 @Entity
 @Table(name = "Administrador")
-public class Administrador {
+public class Administrador implements Serializable {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	/*@GeneratedValue(strategy = GenerationType.IDENTITY)*/
 	@Column(name = "id")
 	private Long CAdministrador;
 	

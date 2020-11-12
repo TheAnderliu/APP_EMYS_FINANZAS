@@ -5,12 +5,14 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import pe.upc.finanzas.entity.Cliente;
 import pe.upc.finanzas.repository.IClienteRepository;
 import pe.upc.finanzas.service.IClienteService;
 
+@Service
 public class ClienteService implements IClienteService, Serializable {
 
 	/**
@@ -35,7 +37,6 @@ public class ClienteService implements IClienteService, Serializable {
 		return clienteRepository.save(entity);
 	}
 	
-	@Transactional
 	@Override
 	public void deletedById(Long id) {
 		// TODO Auto-generated method stub

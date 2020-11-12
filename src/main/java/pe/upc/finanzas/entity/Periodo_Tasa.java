@@ -1,5 +1,6 @@
 package pe.upc.finanzas.entity;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,14 +15,18 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "Periodo_Tasa")
-public class Periodo_Tasa {
+public class Periodo_Tasa implements Serializable{
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id")
 	private Long CPeriodo_Tasa;
 	
-	@Column(name ="nombre_preiodo_tasa", nullable=false)
+	@Column(name ="nombre_periodo_tasa", nullable=false)
 	private String NPeriodo_Tasa;
 	
 	

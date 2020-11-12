@@ -1,6 +1,8 @@
 package pe.upc.finanzas.entity;
 
 
+import java.io.Serializable;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -16,9 +18,15 @@ import javax.validation.constraints.Size;
 
 @Entity
 @Table(name = "Cliente")
-public class Cliente {
+public class Cliente implements Serializable{
 	
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id")
@@ -37,11 +45,11 @@ public class Cliente {
 	@Size(min = 8, max = 8)
 	@NotEmpty(message = "Debe ingresar DNI")
 	@Column(name="numero_dni", nullable=false, length = 8)
-	private String NumDNI;
+	private String numDNI;
 	
 	@NotEmpty(message = "Debe ingresar un número de teléfono")
 	@Column(name="numero_telefono", nullable=false)
-	private int NumTelefono;
+	private int numTelefono;
 	
 	
 	@Column(name="estado_cliente", nullable=false)
@@ -95,21 +103,27 @@ public class Cliente {
 		NNombre = nNombre;
 	}
 
+
+
 	public String getNumDNI() {
-		return NumDNI;
+		return numDNI;
 	}
+
 
 	public void setNumDNI(String numDNI) {
-		NumDNI = numDNI;
+		this.numDNI = numDNI;
 	}
+
 
 	public int getNumTelefono() {
-		return NumTelefono;
+		return numTelefono;
 	}
 
+
 	public void setNumTelefono(int numTelefono) {
-		NumTelefono = numTelefono;
+		this.numTelefono = numTelefono;
 	}
+
 
 	public boolean isBEstado() {
 		return BEstado;

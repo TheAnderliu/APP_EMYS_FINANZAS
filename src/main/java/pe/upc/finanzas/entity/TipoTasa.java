@@ -1,5 +1,6 @@
 package pe.upc.finanzas.entity;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,22 +15,26 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "Tipo_Tasa")
-public class Tipo_Tasa {
+public class TipoTasa implements Serializable{
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id")
-	private Long CTipo_Tasa;
+	private Long CTipoTasa;
 	
 	@Column(name ="nombre_tipo_tasa", nullable=false)
-	private String NTipo_Tasa;
+	private String NTipoTasa;
 
-	@OneToMany(mappedBy = "Tipo_Tasa", cascade = CascadeType.ALL)
+	@OneToMany(mappedBy = "TipoTasa", cascade = CascadeType.ALL)
 	private List<Linea> LineaCreditos;
 	
 	
 	
-	public Tipo_Tasa() {
+	public TipoTasa() {
 		
 		LineaCreditos=new ArrayList<Linea>();
 		
@@ -43,20 +48,20 @@ public class Tipo_Tasa {
 		LineaCreditos = lineaCreditos;
 	}
 
-	public Long getCTipo_Tasa() {
-		return CTipo_Tasa;
+	public Long getCTipoTasa() {
+		return CTipoTasa;
 	}
 
-	public void setCTipo_Tasa(Long cTipo_Tasa) {
-		CTipo_Tasa = cTipo_Tasa;
+	public void setCTipo_Tasa(Long cTipoTasa) {
+		CTipoTasa = cTipoTasa;
 	}
 
-	public String getNTipo_Tasa() {
-		return NTipo_Tasa;
+	public String getNTipoTasa() {
+		return NTipoTasa;
 	}
 
-	public void setNTipo_Tasa(String nTipo_Tasa) {
-		NTipo_Tasa = nTipo_Tasa;
+	public void setNTipo_Tasa(String nTipoTasa) {
+		NTipoTasa = nTipoTasa;
 	}
 	
 	
