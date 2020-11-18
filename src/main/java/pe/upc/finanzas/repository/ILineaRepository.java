@@ -36,7 +36,7 @@ public interface ILineaRepository extends JpaRepository<Linea, Long>{
 	List<Transaccion> ListaDeTransaccionees(@Param("CLinea")Long CLinea); 
 	
 	
-	@Query("select datediff(:FechaMayor, :FechaMenor)")
+	@Query(value = "select datediff(:FechaMayor, :FechaMenor)", nativeQuery = true)
 	public int DiferenciaEntreFecha(@Param("FechaMayor")Date FechaMayor, @Param("FechaMenor")Date FechaMenor);
 	
 }
