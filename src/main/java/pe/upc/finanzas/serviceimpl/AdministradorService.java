@@ -2,7 +2,7 @@ package pe.upc.finanzas.serviceimpl;
 
 import java.io.Serializable;
 import java.util.List;
-import java.util.Optional;
+
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -24,45 +24,60 @@ public class AdministradorService implements IAdministradorService, Serializable
 	@Autowired
 	private IAdministradorRepository administradorRepository;
 
-	@Transactional
-	@Override
-	public Administrador save(Administrador entity) throws Exception {
-		// TODO Auto-generated method stub
-		return administradorRepository.save(entity);
-	}
 
 	@Transactional
 	@Override
-	public Administrador update(Administrador entity) throws Exception {
-		// TODO Auto-generated method stub
-		return administradorRepository.save(entity);
+	public Integer save(Administrador administrador) {
+		int rpta = administradorRepository.searchCAdministradorAdministrador(administrador.getCAdministrador()); //0 si no existe el CIP
+		if(rpta==0) {
+			
+			administradorRepository.save(administrador);
+			
+		}
+		
+		return rpta;
 	}
 
+
+	@Transactional
 	@Override
-	public void deletedById(Long id) {
-		// TODO Auto-generated method stub
-		administradorRepository.deleteById(id);
+	public void update(Administrador administrador) {
+		
+		administradorRepository.save(administrador);
+		
 	}
 
 	@Transactional
 	@Override
-	public Optional<Administrador> findById(Long id) throws Exception {
-		// TODO Auto-generated method stub
-		return administradorRepository.findById(id);
+	public void delete(Administrador administrador) {
+		
+		
+		
+		administradorRepository.delete(administrador);
+		
 	}
 
-	@Transactional(readOnly = true)
+
 	@Override
-	public List<Administrador> findAll() throws Exception {
+	public Administrador findByID(Long CAdministrador) {
+		// TODO Auto-generated method stub
+		return administradorRepository.findByCAdministrador(CAdministrador);
+	}
+
+
+	@Override
+	public List<Administrador> findAll() {
 		// TODO Auto-generated method stub
 		return administradorRepository.findAll();
 	}
-	
-	@Transactional(readOnly = true)
+
+
 	@Override
-	public Optional<Administrador> findByNAdministrador(String NAdministrador) throws Exception {
+	public Administrador findByNAdministrador(String NAdministrador) {
 		// TODO Auto-generated method stub
 		return administradorRepository.findByNAdministrador(NAdministrador);
 	}
+
+
 
 }

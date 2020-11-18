@@ -14,6 +14,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
 import org.springframework.format.annotation.DateTimeFormat;
@@ -30,40 +31,41 @@ public class Transaccion implements Serializable{
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "id")
-	private Long CTransacción;
+	@Column(name = "CTransaccion")
+	private Long CTransaccion;
 	
-	
-	@Column(name ="descripcion", nullable=false)
-	private String TDescripción;
+	@NotEmpty(message = "Debe ingresar una descripción")
+	@Column(name ="TDescripcion", nullable=false)
+	private String TDescripcion;
 	
 	@NotNull(message = "Debe ingresar fecha*")
 	@Temporal(TemporalType.DATE)	
-	@DateTimeFormat(pattern = "dd-MM-yyyy")
-	@Column(name ="fecha", nullable=false)
+	@DateTimeFormat(pattern = "yy-MM-dd")
+	@Column(name ="DFecha", nullable=false)
 	private Date DFecha;
 	
-	@Column(name ="monto", nullable=false)
-	private float $Monto;
+	@NotNull(message = "Debe ingresar un monto")
+	@Column(name ="Monto", nullable=false)
+	private float Monto;
 	
-	@Column(name ="tipo", nullable=false)
+	@Column(name ="BTipo", nullable=false)
 	private boolean BTipo;
 	
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name="tipo_delivery_id")
-	private Tipo_Delivery Tipo_Delivery;
+	@JoinColumn(name="tipodelivery_id")
+	private TipoDelivery TipoDelivery;
 	
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name="linea_id")
 	private Linea linea;
 
 	
-	public Tipo_Delivery getTipo_Delivery() {
-		return Tipo_Delivery;
+	public TipoDelivery getTipoDelivery() {
+		return TipoDelivery;
 	}
 
-	public void setTipo_Delivery(Tipo_Delivery tipo_Delivery) {
-		Tipo_Delivery = tipo_Delivery;
+	public void setTipoDelivery(TipoDelivery tipoDelivery) {
+		TipoDelivery = tipoDelivery;
 	}
 
 	
@@ -75,20 +77,20 @@ public class Transaccion implements Serializable{
 		this.linea = linea;
 	}
 
-	public Long getCTransacción() {
-		return CTransacción;
+	public Long getCTransaccion() {
+		return CTransaccion;
 	}
 
-	public void setCTransacción(Long cTransacción) {
-		CTransacción = cTransacción;
+	public void setCTransaccion(Long cTransaccion) {
+		CTransaccion = cTransaccion;
 	}
 
-	public String getTDescripción() {
-		return TDescripción;
+	public String getTDescripcion() {
+		return TDescripcion;
 	}
 
-	public void setTDescripción(String tDescripción) {
-		TDescripción = tDescripción;
+	public void setTDescripcion(String tDescripcion) {
+		TDescripcion = tDescripcion;
 	}
 
 	public Date getDFecha() {
@@ -99,12 +101,12 @@ public class Transaccion implements Serializable{
 		DFecha = dFecha;
 	}
 
-	public float get$Monto() {
-		return $Monto;
+	public float getMonto() {
+		return Monto;
 	}
 
-	public void set$Monto(float $Monto) {
-		this.$Monto = $Monto;
+	public void setMonto(float Monto) {
+		this.Monto = Monto;
 	}
 
 	public boolean isBTipo() {

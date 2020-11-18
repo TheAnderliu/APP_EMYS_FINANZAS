@@ -5,10 +5,21 @@ import java.util.List;
 
 import pe.upc.finanzas.entity.Cliente;
 import pe.upc.finanzas.entity.Linea;
+import pe.upc.finanzas.entity.Sistema;
 
-public interface ILineaService  extends CrudService<Linea, Long>{
+public interface ILineaService{
 
-	List<Linea> findByDFechaEmision(Date DFechaEmision) throws Exception;
+	public Integer save(Linea linea);
 	
-	public Integer insert(Linea linea, Cliente cliente) throws Exception;
+	public void update(Linea linea);
+	
+	public void delete(Linea linea);
+	
+	public Linea findByID(Long CLinea);
+	
+	public List<Linea> findAll();
+	
+	List<Linea> findByDFechaEmision(Date DFechaEmision);
+	
+	public Sistema Resultados(Long CCliente);
 }

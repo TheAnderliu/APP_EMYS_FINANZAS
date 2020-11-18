@@ -22,47 +22,51 @@ public class TipoMonedaService implements ITipoMonedaService, Serializable{
 
 	@Autowired
 	private ITipoMonedaRepository tipomonedaRepository;
-	
-	@Transactional
-	@Override
-	public TipoMoneda save(TipoMoneda entity) throws Exception {
-		// TODO Auto-generated method stub
-		return tipomonedaRepository.save(entity);
-	}
 
 	@Transactional
 	@Override
-	public TipoMoneda update(TipoMoneda entity) throws Exception {
+	public Integer save(TipoMoneda tipomoneda) {
 		// TODO Auto-generated method stub
-		return tipomonedaRepository.save(entity);
+		int rpta = tipomonedaRepository.searchCTipoMonedaTipoMoneda(tipomoneda.getCTipoMoneda());
+		if (rpta==0) {
+			tipomonedaRepository.save(tipomoneda);
+		}
+		
+		return rpta;
 	}
 
-
+	@Transactional
 	@Override
-	public void deletedById(Long id) {
+	public void update(TipoMoneda tipomoneda) {
 		// TODO Auto-generated method stub
-		tipomonedaRepository.deleteById(id);
+		tipomonedaRepository.save(tipomoneda);
 	}
 
-	@Transactional(readOnly = true)
+	@Transactional
 	@Override
-	public Optional<TipoMoneda> findById(Long id) throws Exception {
+	public void delete(TipoMoneda tipomoneda) {
 		// TODO Auto-generated method stub
-		return tipomonedaRepository.findById(id);
+		tipomonedaRepository.delete(tipomoneda);
 	}
 
-	@Transactional(readOnly = true)
 	@Override
-	public List<TipoMoneda> findAll() throws Exception {
+	public TipoMoneda findByID(Long CTipoMoneda) {
+		// TODO Auto-generated method stub
+		return tipomonedaRepository.findByCTipoMoneda(CTipoMoneda);
+	}
+
+	@Override
+	public List<TipoMoneda> findAll() {
 		// TODO Auto-generated method stub
 		return tipomonedaRepository.findAll();
 	}
 
-	@Transactional(readOnly = true)
 	@Override
 	public List<TipoMoneda> findByNTipoMoneda(String NTipoMoneda) {
 		// TODO Auto-generated method stub
 		return tipomonedaRepository.findByNTipoMoneda(NTipoMoneda);
 	}
+	
+	
 
 }

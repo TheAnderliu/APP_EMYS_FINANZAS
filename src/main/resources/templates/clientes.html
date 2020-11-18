@@ -1,6 +1,7 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org"
-	xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5"
+      lang="en">
 
 <head>
     <meta charset="utf-8">
@@ -26,6 +27,7 @@
                 <ul class="nav navbar-nav text-light" id="accordionSidebar">
                     <li class="nav-item" role="presentation"><a class="nav-link" th:href="@{/dashboard}"><i class="fas fa-tachometer-alt"></i><span>Dashboard</span></a></li>
                     <li class="nav-item" role="presentation"></li>
+                    <li class="nav-item" role="presentation"><a class="nav-link" th:href="@{/registrarcliente}"><i class="fas fa-file-signature"></i><span>Registrar Cliente</span></a></li>
                     <li class="nav-item" role="presentation"><a class="nav-link" th:href="@{/registrarlineadecredito}"><i class="fas fa-file-signature"></i><span>Registrar Línea de Crédito</span></a></li>
                     <li class="nav-item" role="presentation"><a class="nav-link" th:href="@{/registrartransaccion}"><i class="material-icons">monetization_on</i><span>Registrar Transacción</span></a></li>
                     <li class="nav-item" role="presentation"><a class="nav-link active" th:href="@{/clientes}"><i class="fas fa-users" style="margin: -2px;"></i><span style="margin: 6px;">Clientes</span></a></li>
@@ -37,11 +39,7 @@
             <div id="content">
                 <nav class="navbar navbar-light navbar-expand bg-white shadow mb-4 topbar static-top">
                     <div class="container-fluid"><button class="btn btn-link d-md-none rounded-circle mr-3" id="sidebarToggleTop" type="button"><i class="fas fa-bars"></i></button>
-                        <form class="form-inline d-none d-sm-inline-block mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
-                            <div class="input-group"><input class="bg-light form-control border-0 small" type="text" placeholder="Buscar...">
-                                <div class="input-group-append"><button class="btn btn-primary py-0" type="button"><i class="fas fa-search"></i></button></div>
-                            </div>
-                        </form>
+                        
                         <ul class="nav navbar-nav flex-nowrap ml-auto">
                             <li class="nav-item dropdown d-sm-none no-arrow"><a class="dropdown-toggle nav-link" data-toggle="dropdown" aria-expanded="false" href="#"><i class="fas fa-search"></i></a>
                                 <div class="dropdown-menu dropdown-menu-right p-3 animated--grow-in" role="menu" aria-labelledby="searchDropdown">
@@ -54,9 +52,9 @@
                             </li>
                             <div class="d-none d-sm-block topbar-divider"></div>
                             <li class="nav-item dropdown no-arrow" role="presentation">
-                                <div class="nav-item dropdown show no-arrow"><a class="dropdown-toggle nav-link" data-toggle="dropdown" aria-expanded="true" href="#"><span class="d-none d-lg-inline mr-2 text-gray-600 small">Valerie Luna</span><i class="fa fa-user-circle" style="font-size: 26px;"></i></a>
+                                <div class="nav-item dropdown no-arrow"><a class="dropdown-toggle nav-link" data-toggle="dropdown" aria-expanded="false" href="#"><span class="d-none d-lg-inline mr-2 text-gray-600 small">Valerie Luna</span><i class="fa fa-user-circle" style="font-size: 26px;"></i></a>
                                     <div
-                                        class="dropdown-menu show shadow dropdown-menu-right animated--grow-in" role="menu"><a class="dropdown-item" role="presentation" href="#"><i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>&nbsp;Cerrar sesión</a></div>
+                                        class="dropdown-menu shadow dropdown-menu-right animated--grow-in" role="menu"><a class="dropdown-item" role="presentation" href="#"><i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>&nbsp;Cerrar sesión</a></div>
                     </div>
                     </li>
                     </ul>
@@ -72,12 +70,7 @@
                         <p class="text-primary m-0 font-weight-bold">Lista de clientes</p>
                     </div>
                     <div class="card-body">
-                        <div class="row" style="width: 286px;">
-                            <div class="col-md-auto col-lg-auto col-xl-auto text-nowrap" style="width: 202px;">
-                                <div id="dataTable_length" class="dataTables_length" aria-controls="dataTable"><label>Mostrar&nbsp;<select class="custom-select form-control form-control-sm custom-select custom-select-sm"><option value="10" selected="">10</option><option value="25">25</option><option value="50">50</option><option value="100">100</option></select>&nbsp;</label></div>
-                            </div>
-                            <div class="col-md-auto col-lg-auto col-xl-auto"><button class="btn btn-primary" type="button" style="padding-left: 16px;padding-right: 16px;margin-left: 0px;height: 36px;">Ver</button></div>
-                        </div>
+                       
                         <div class="table-responsive table mt-2" id="dataTable" role="grid" aria-describedby="dataTable_info">
                             <table class="table dataTable my-0" id="dataTable">
                                 <thead>
@@ -92,120 +85,28 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr>
-                                        <td>1</td>
-                                        <td>Jorge Antonio</td>
-                                        <td>Terrones Huarcaya</td>
-                                        <td>72260854</td>
-                                        <td class="text-center">941473807</td>
-                                        <td class="text-center d-xl-flex justify-content-xl-center" style="height: 61px;"><span class="badge badge-success d-xl-flex justify-content-xl-center align-items-xl-center" style="height: 32px;padding-top: 4px;padding-bottom: 4px;width: 92px;">HABILITADO</span></td>
+                                    <tr th:each="cliente : ${listadoClientes}">
+                                        <td th:text="${cliente.CCliente}">1</td>
+                                        <td th:text="${cliente.NNombre}">Jorge Antonio</td>
+                                        <td th:text="${cliente.NApellido}">Terrones Huarcaya</td>
+                                        <td th:text="${cliente.numDNI}">72260854</td>
+                                        <td th:text="${cliente.numTelefono}"class="text-center">941473807</td>
+                                        <td class="text-center d-xl-flex justify-content-xl-center" style="height: 61px;">
+                                        	<span class="badge badge-success d-xl-flex justify-content-xl-center align-items-xl-center" style="height: 32px;padding-top: 4px;padding-bottom: 4px;width: 92px;" th:if="${cliente.BEstado} == true">HABILITADO</span>
+                                        	<span class="badge badge-warning d-xl-flex justify-content-xl-center align-items-xl-center" style="height: 32px;padding-top: 4px;padding-bottom: 4px;width: 92px;" th:if="${cliente.BEstado} == false">DEUDOR</span>
+                                        </td>
                                         <td class="text-center" style="height: 61px;"><a class="btn btn-primary" role="button" style="height: 33px;padding-bottom: 4px;padding-top: 4px;width: 64px;" href="clienteseleccionado.html">Ver</a></td>
                                     </tr>
-                                    <tr>
-                                        <td>2</td>
-                                        <td>Aldo Anderson</td>
-                                        <td>Mendoza Marin</td>
-                                        <td>7213529</td>
-                                        <td class="text-center">943251648<br></td>
-                                        <td class="text-center d-xl-flex justify-content-xl-center" style="height: 61px;"><span class="badge badge-warning d-xl-flex justify-content-xl-center align-items-xl-center" style="height: 32px;padding-top: 4px;padding-bottom: 4px;width: 92px;">DEUDOR</span></td>
-                                        <td class="text-center" style="height: 61px;"><a class="btn btn-primary" role="button" style="height: 33px;padding-bottom: 4px;padding-top: 4px;width: 64px;" href="clienteseleccionado.html">Ver</a></td>
-                                    </tr>
-                                    <tr>
-                                        <td>3</td>
-                                        <td>Francis Bratzo</td>
-                                        <td>Valdivia Gutarra</td>
-                                        <td>72308435</td>
-                                        <td class="text-center">92024561<br></td>
-                                        <td class="text-center d-xl-flex justify-content-xl-center" style="height: 61px;"><span class="badge badge-success d-xl-flex justify-content-xl-center align-items-xl-center" style="height: 32px;padding-top: 4px;padding-bottom: 4px;width: 92px;">HABILITADO</span></td>
-                                        <td class="text-center" style="height: 61px;"><a class="btn btn-primary" role="button" style="height: 33px;padding-bottom: 4px;padding-top: 4px;width: 64px;" href="clienteseleccionado.html">Ver</a></td>
-                                    </tr>
-                                    <tr>
-                                        <td>4</td>
-                                        <td>Francis Bratzo</td>
-                                        <td>Valdivia Gutarra</td>
-                                        <td>72308435<br></td>
-                                        <td class="text-center">943251648<br></td>
-                                        <td class="text-center d-xl-flex justify-content-xl-center" style="height: 61px;"><span class="badge badge-success d-xl-flex justify-content-xl-center align-items-xl-center" style="height: 32px;padding-top: 4px;padding-bottom: 4px;width: 92px;">HABILITADO</span></td>
-                                        <td class="text-center" style="height: 61px;"><a class="btn btn-primary" role="button" style="height: 33px;padding-bottom: 4px;padding-top: 4px;width: 64px;" href="clienteseleccionado.html">Ver</a></td>
-                                    </tr>
-                                    <tr>
-                                        <td>5</td>
-                                        <td>Francis Bratzo</td>
-                                        <td>Valdivia Gutarra</td>
-                                        <td>72308435<br></td>
-                                        <td class="text-center">941473807<br></td>
-                                        <td class="text-center d-xl-flex justify-content-xl-center" style="height: 61px;"><span class="badge badge-success d-xl-flex justify-content-xl-center align-items-xl-center" style="height: 32px;padding-top: 4px;padding-bottom: 4px;width: 92px;">HABILITADO</span></td>
-                                        <td class="text-center" style="height: 61px;"><a class="btn btn-primary" role="button" style="height: 33px;padding-bottom: 4px;padding-top: 4px;width: 64px;" href="clienteseleccionado.html">Ver</a></td>
-                                    </tr>
-                                    <tr>
-                                        <td>6</td>
-                                        <td>Francis Bratzo</td>
-                                        <td>Valdivia Gutarra</td>
-                                        <td>72308435<br></td>
-                                        <td class="text-center">941473807<br></td>
-                                        <td class="text-center d-xl-flex justify-content-xl-center" style="height: 61px;"><span class="badge badge-warning d-xl-flex justify-content-xl-center align-items-xl-center" style="height: 32px;padding-top: 4px;padding-bottom: 4px;width: 92px;">DEUDOR</span></td>
-                                        <td class="text-center" style="height: 61px;"><a class="btn btn-primary" role="button" style="height: 33px;padding-bottom: 4px;padding-top: 4px;width: 64px;" href="clienteseleccionado.html">Ver</a></td>
-                                    </tr>
-                                    <tr>
-                                        <td>7</td>
-                                        <td>Francis Bratzo</td>
-                                        <td>Valdivia Gutarra</td>
-                                        <td>72308435<br></td>
-                                        <td class="text-center">92024561<br></td>
-                                        <td class="text-center d-xl-flex justify-content-xl-center" style="height: 61px;"><span class="badge badge-success d-xl-flex justify-content-xl-center align-items-xl-center" style="height: 32px;padding-top: 4px;padding-bottom: 4px;width: 92px;">HABILITADO</span></td>
-                                        <td class="text-center" style="height: 61px;"><a class="btn btn-primary" role="button" style="height: 33px;padding-bottom: 4px;padding-top: 4px;width: 64px;" href="clienteseleccionado.html">Ver</a></td>
-                                    </tr>
-                                    <tr>
-                                        <td>8</td>
-                                        <td>Francis Bratzo</td>
-                                        <td>Valdivia Gutarra</td>
-                                        <td>72308435<br></td>
-                                        <td class="text-center">943251648<br></td>
-                                        <td class="text-center d-xl-flex justify-content-xl-center" style="height: 61px;"><span class="badge badge-success d-xl-flex justify-content-xl-center align-items-xl-center" style="height: 32px;padding-top: 4px;padding-bottom: 4px;width: 92px;">HABILITADO</span></td>
-                                        <td class="text-center" style="height: 61px;"><a class="btn btn-primary" role="button" style="height: 33px;padding-bottom: 4px;padding-top: 4px;width: 64px;" href="clienteseleccionado.html">Ver</a></td>
-                                    </tr>
-                                    <tr>
-                                        <td>9</td>
-                                        <td>Francis Bratzo</td>
-                                        <td>Valdivia Gutarra</td>
-                                        <td>72308435<br></td>
-                                        <td class="text-center">941473807<br></td>
-                                        <td class="text-center d-xl-flex justify-content-xl-center" style="height: 61px;"><span class="badge badge-warning d-xl-flex justify-content-xl-center align-items-xl-center" style="height: 32px;padding-top: 4px;padding-bottom: 4px;width: 92px;">DEUDOR</span></td>
-                                        <td class="text-center" style="height: 61px;"><a class="btn btn-primary" role="button" style="height: 33px;padding-bottom: 4px;padding-top: 4px;width: 64px;" href="clienteseleccionado.html">Ver</a></td>
-                                    </tr>
-                                    <tr>
-                                        <td>10</td>
-                                        <td>Francis Bratzo</td>
-                                        <td>Valdivia Gutarra</td>
-                                        <td>72308435<br></td>
-                                        <td class="text-center">943251648<br></td>
-                                        <td class="text-center d-xl-flex justify-content-xl-center" style="height: 61px;"><span class="badge badge-warning d-xl-flex justify-content-xl-center align-items-xl-center" style="height: 32px;padding-top: 4px;padding-bottom: 4px;width: 92px;">DEUDOR</span></td>
-                                        <td class="text-center" style="height: 61px;"><a class="btn btn-primary" role="button" style="height: 33px;padding-bottom: 4px;padding-top: 4px;width: 64px;" href="clienteseleccionado.html">Ver</a></td>
-                                    </tr>
+                                   
                                 </tbody>
                             </table>
                         </div>
-                        <div class="row">
-                            <div class="col-md-6 align-self-center">
-                                <p id="dataTable_info" class="dataTables_info" role="status" aria-live="polite">Mostrando desde 1 hasta 10 de 27</p>
-                            </div>
-                            <div class="col-md-6">
-                                <nav class="d-lg-flex justify-content-lg-end dataTables_paginate paging_simple_numbers">
-                                    <ul class="pagination">
-                                        <li class="page-item disabled"><a class="page-link" href="#" aria-label="Previous"><span aria-hidden="true">«</span></a></li>
-                                        <li class="page-item active"><a class="page-link" href="#">1</a></li>
-                                        <li class="page-item"><a class="page-link" href="#">2</a></li>
-                                        <li class="page-item"><a class="page-link" href="#">3</a></li>
-                                        <li class="page-item"><a class="page-link" href="#" aria-label="Next"><span aria-hidden="true">»</span></a></li>
-                                    </ul>
-                                </nav>
-                            </div>
-                        </div>
+                        
                     </div>
                 </div>
             </div>
         </div>
-    </div><a class="border rounded d-inline scroll-to-top" href="#page-top"><i class="fas fa-angle-up"></i></a></div><img src="assets/img/logo-emysvg.svg" style="width: 31px;height: 31px;">
+    </div><a class="border rounded d-inline scroll-to-top" href="#page-top"><i class="fas fa-angle-up"></i></a></div>
     <script src="assets/js/jquery.min.js"></script>
     <script src="assets/bootstrap/js/bootstrap.min.js"></script>
     <script src="assets/js/bs-init.js"></script>

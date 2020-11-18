@@ -12,6 +12,7 @@ import javax.persistence.Id;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 
@@ -29,30 +30,30 @@ public class Cliente implements Serializable{
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "id")
+	@Column(name = "CCliente")
 	private Long CCliente;
 	
 
 	@NotEmpty(message = "Debe ingresar apellidos*")
-	@Column(name="apellidos", length = 50, nullable=false)
+	@Column(name="NApellido", length = 50, nullable=false)
 	private String NApellido;
 	
 
 	@NotEmpty(message = "Debe ingresar nombres*")
-	@Column(name="nombres", length=50, nullable=false)
+	@Column(name="NNombre", length=50, nullable=false)
 	private String NNombre;
 	
 	@Size(min = 8, max = 8)
 	@NotEmpty(message = "Debe ingresar DNI")
-	@Column(name="numero_dni", nullable=false, length = 8)
+	@Column(name="numDNI", nullable=false, length = 8)
 	private String numDNI;
 	
-	@NotEmpty(message = "Debe ingresar un número de teléfono")
-	@Column(name="numero_telefono", nullable=false)
+	@NotNull(message = "Debe ingresar un número de teléfono")
+	@Column(name="numTelefono", nullable=false)
 	private int numTelefono;
 	
 	
-	@Column(name="estado_cliente", nullable=false)
+	@Column(name="BEstado", nullable=false)
 	private boolean BEstado;
 	
 	/*
@@ -66,6 +67,7 @@ public class Cliente implements Serializable{
 	
 	public Cliente() {
 		this.BEstado=true;
+		
 	}
 	
 	
@@ -132,6 +134,9 @@ public class Cliente implements Serializable{
 	public void setBEstado(boolean bEstado) {
 		BEstado = bEstado;
 	}
+
+
+	
 	
 	
 

@@ -1,5 +1,8 @@
 package pe.upc.finanzas.controller;
 
+import java.util.Date;
+import java.util.Optional;
+
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,6 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.support.SessionStatus;
 
@@ -16,52 +20,45 @@ import pe.upc.finanzas.service.IClienteService;
 import pe.upc.finanzas.service.ILineaService;
 
 @Controller
-@RequestMapping("/linea")
 public class LineaController {
 
 	@Autowired
 	private ILineaService lineaService;
 	
-	@Autowired
-	private IClienteService clienteService;
 	
 	
 	
-	
-	@GetMapping("/save")
-	public String saveLinea(@Valid Cliente cliente, @Valid Linea linea, BindingResult result, Model model, SessionStatus status) throws Exception{
+	@PostMapping("/insertarLinea")
+	public String insertarLinea(@Valid Linea linea, BindingResult result, Model model, SessionStatus status) {
+		
+		
+		/*
+		Date fechaconvertida=(Date)linea.getDFechaEmision();
+		linea.setDFechaEmision(fechaconvertida);*/
 		
 		if (result.hasErrors()) {
-			return "sistema/registrolinea";
+			model.addAttribute("mensaje", "Error al inicio de la funcion");
+			return "registrarlineadecredito";
+			
 		} else {
 			
-			if (clienteService.findByNumDNI(cliente.getNumDNI())!=null) {
-				model.addAttribute("mensaje", "Ya existe un cliente registrado con el mismo DNI");
-				return "sistema/registrolinea";
-				
+			 
+			int rpta = lineaService.save(linea);
+			if (rpta>0) {
+				model.addAttribute("mensaje", "Ya existe una linea con el mismo ID");
+				return "registrarlineadecredito";
 			} else {
-
-				clienteService.save(cliente);
-				
-				
-				int rpta = lineaService.insert(linea, cliente);
-				
-				if (rpta==0) {
-					model.addAttribute("mensaje", "Error al registrar la linea de crédito");
-				}else {
-					model.addAttribute("mensaje", "!Cliente y línea registrados!");
-					status.setComplete();
-				}
+				model.addAttribute("mensaje", "¡Linea registrada!");
+				status.setComplete();
 				
 				
 			}
-			
 			
 		}
 		
 		
 		
-		return "sistema/registrolinea";
+		return "registrarlineadecredito";
 	}
 	
 }

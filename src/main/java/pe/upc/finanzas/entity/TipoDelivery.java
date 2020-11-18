@@ -14,8 +14,8 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "Tipo_Delivery")
-public class Tipo_Delivery implements Serializable{
+@Table(name = "TipoDelivery")
+public class TipoDelivery implements Serializable{
 
 	/**
 	 * 
@@ -23,18 +23,18 @@ public class Tipo_Delivery implements Serializable{
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@Column(name = "id")
+	@Column(name = "CTipoDelivery")
 	private Long CTipoDelivery;
 	
-	@Column(name ="monto_tipo_delivery", nullable=false)
-	private float $TipoDelivery;
+	@Column(name ="MontoTipoDelivery", nullable=false)
+	private float MontoTipoDelivery;
 
-	@OneToMany(mappedBy = "Tipo_Delivery", cascade = CascadeType.ALL)
+	@OneToMany(mappedBy = "TipoDelivery", cascade = CascadeType.ALL)
 	private List<Transaccion> Transacciones;
 	
 	
 	
-	public Tipo_Delivery() {
+	public TipoDelivery() {
 		Transacciones = new ArrayList<Transaccion>();
 	}
 
@@ -56,12 +56,12 @@ public class Tipo_Delivery implements Serializable{
 		CTipoDelivery = cTipoDelivery;
 	}
 
-	public float get$TipoDelivery() {
-		return $TipoDelivery;
+	public float getMontoTipoDelivery() {
+		return MontoTipoDelivery;
 	}
 
-	public void set$TipoDelivery(float $TipoDelivery) {
-		this.$TipoDelivery = $TipoDelivery;
+	public void setMontoTipoDelivery(float MontoTipoDelivery) {
+		this.MontoTipoDelivery = MontoTipoDelivery;
 	}
 	
 	

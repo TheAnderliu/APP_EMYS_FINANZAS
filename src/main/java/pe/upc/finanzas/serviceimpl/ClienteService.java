@@ -25,50 +25,55 @@ public class ClienteService implements IClienteService, Serializable {
 
 	@Transactional
 	@Override
-	public Cliente save(Cliente entity) throws Exception {
-		// TODO Auto-generated method stub
-		return clienteRepository.save(entity);
+	public Integer save(Cliente cliente) {
+		int rpta = clienteRepository.searchNumDNICliente(cliente.getNumDNI()); //0 si no existe el CIP
+		if(rpta==0) {
+			
+			clienteRepository.save(cliente);
+			
+		}
+		
+		return rpta;
 	}
 
 	@Transactional
 	@Override
-	public Cliente update(Cliente entity) throws Exception {
+	public void update(Cliente cliente) {
 		// TODO Auto-generated method stub
-		return clienteRepository.save(entity);
-	}
-	
-	@Override
-	public void deletedById(Long id) {
-		// TODO Auto-generated method stub
-		clienteRepository.deleteById(id);
+		clienteRepository.save(cliente);
 	}
 
-	@Transactional(readOnly = true)
+	@Transactional
 	@Override
-	public Optional<Cliente> findById(Long id) throws Exception {
+	public void delete(Cliente cliente) {
 		// TODO Auto-generated method stub
-		return clienteRepository.findById(id);
+		clienteRepository.delete(cliente);
 	}
 
-	@Transactional(readOnly = true)
 	@Override
-	public List<Cliente> findAll() throws Exception {
+	public Cliente findByID(Long CCliente) {
+		// TODO Auto-generated method stub
+		return clienteRepository.findByCCliente(CCliente);
+	}
+
+	@Override
+	public List<Cliente> findAll() {
 		// TODO Auto-generated method stub
 		return clienteRepository.findAll();
 	}
 
-	@Transactional(readOnly = true)
 	@Override
-	public Optional<Cliente> findByNumTelefono(int NumTelefono) throws Exception {
+	public Cliente findByNumTelefono(int NumTelefono) {
 		// TODO Auto-generated method stub
 		return clienteRepository.findByNumTelefono(NumTelefono);
 	}
 
-	@Transactional(readOnly = true)
 	@Override
-	public Optional<Cliente> findByNumDNI(String NumDNI) throws Exception {
+	public Cliente findByNumDNI(String NumDNI) {
 		// TODO Auto-generated method stub
 		return clienteRepository.findByNumDNI(NumDNI);
 	}
+
+
 
 }

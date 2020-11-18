@@ -22,13 +22,13 @@ public class TipoMantenimiento implements Serializable{
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@Column(name = "id")
+	@Column(name = "CTipoMantenimiento")
 	private Long CTipoMantenimiento;
 	
-	@Column(name="nombre_tipo_mantenimiento", nullable=false)
+	@Column(name="NTipoMantenimiento", nullable=false)
 	private String NTipoMantenimiento;
 	
-	@Column(name ="numero_tipo_mantenimiento", nullable=false)
+	@Column(name ="NumTipoMantenimiento", nullable=false)
 	private int NumTipoMantenimiento;
 	
 	@OneToMany(mappedBy = "TipoMantenimiento", cascade = CascadeType.ALL)

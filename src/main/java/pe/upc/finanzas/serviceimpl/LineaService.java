@@ -1,6 +1,7 @@
 package pe.upc.finanzas.serviceimpl;
 
 import java.io.Serializable;
+import java.time.temporal.ChronoUnit;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
@@ -13,6 +14,8 @@ import org.springframework.transaction.annotation.Transactional;
 import pe.upc.finanzas.entity.Administrador;
 import pe.upc.finanzas.entity.Cliente;
 import pe.upc.finanzas.entity.Linea;
+import pe.upc.finanzas.entity.Sistema;
+import pe.upc.finanzas.entity.Transaccion;
 import pe.upc.finanzas.repository.IAdministradorRepository;
 import pe.upc.finanzas.repository.IClienteRepository;
 import pe.upc.finanzas.repository.ILineaRepository;
@@ -29,84 +32,316 @@ public class LineaService implements ILineaService, Serializable{
 	@Autowired
 	private ILineaRepository lineaRepository;
 	
-	@Autowired
-	private IClienteRepository clienteRepository;
 	
-	
-	@Autowired
-	private IAdministradorRepository administradorRepository; 
 	
 	@Transactional
 	@Override
-	public Linea save(Linea entity) throws Exception {
+	public Integer save(Linea linea) {
 		// TODO Auto-generated method stub
-		return lineaRepository.save(entity);
-	}
-
-	@Transactional
-	@Override
-	public Linea update(Linea entity) throws Exception {
-		// TODO Auto-generated method stub
-		return lineaRepository.save(entity);
-	}
-
-	@Override
-	public void deletedById(Long id) {
-		lineaRepository.deleteById(id);
+		int rpta = lineaRepository.searchCLineaLinea(linea.getCLinea());
+		if (rpta==0) {
+			lineaRepository.save(linea);
+		}
+		
+		return rpta;
 		
 	}
 
-	@Transactional(readOnly = true)
+
+	@Transactional
 	@Override
-	public Optional<Linea> findById(Long id) throws Exception {
+	public void update(Linea linea) {
 		// TODO Auto-generated method stub
-		return lineaRepository.findById(id);
+		lineaRepository.save(linea);
 	}
 
-	@Transactional(readOnly = true)
+
+	@Transactional
 	@Override
-	public List<Linea> findAll() throws Exception {
+	public void delete(Linea linea) {
+		// TODO Auto-generated method stub
+		lineaRepository.delete(linea);
+	}
+
+
+
+	@Override
+	public Linea findByID(Long CLinea) {
+		// TODO Auto-generated method stub
+		return lineaRepository.findByCLinea(CLinea);
+	}
+
+
+
+	@Override
+	public List<Linea> findAll() {
 		// TODO Auto-generated method stub
 		return lineaRepository.findAll();
 	}
 
-	@Transactional(readOnly = true)
+
+
 	@Override
-	public List<Linea> findByDFechaEmision(Date DFechaEmision) throws Exception {
+	public List<Linea> findByDFechaEmision(Date DFechaEmision) {
 		// TODO Auto-generated method stub
 		return lineaRepository.findByDFechaEmision(DFechaEmision);
 	}
 
+
 	@Override
-	public Integer insert(Linea linea, Cliente cliente) throws Exception {
-		// TODO Auto-generated method stub
+	public Sistema Resultados(Long CCliente) {
 		
 		
-		if (clienteRepository.findByNumDNI(cliente.getNumDNI())!=null) {
+		//Iniciciamos la variable de Sistema
+		
+		Sistema respuestadesistema = new Sistema();
+		
+		//Traemos la linea del cliente
+		Linea LineaEncontradaDeCliente= lineaRepository.findByCCliente(CCliente);
+		
+		//Contamos cuántas transacciones totales tiene (para luego iterar)
+		int CantidadDeTransacciones =lineaRepository.CantidadDeTransaccionesPorLinea(LineaEncontradaDeCliente.getCLinea());
+		
+		
+		//Obtenemos los datos de la linea
+		int Limite = LineaEncontradaDeCliente.getNumCredito();
+		String TipoTasa = (LineaEncontradaDeCliente.getTipoTasa()).getNTipoTasa();
+		double ValorTasa = LineaEncontradaDeCliente.getNTasa();
+		
+		int Capitalizacion = 0;
+		
+		String PeriodoTasa = "";
+		
+		float monto = 0;
+		
+		Boolean TipoMonto ;
+		
+		int tiempo = 0;
+		
+		float mtotal = 0;
+		
+		float DeudasTotales = 0;
+		
+		float PagoTotal = 0;
+		
+		double ResultadoM = 0;
+		
+		double resultado = 0;
+		
+		float m = 0;
+		
+		
+		
+		
+		
+		ValorTasa = ValorTasa / 100 ;
+		
+		
+		
+		if (TipoTasa.equals("Simple")) {	
+		
+			Capitalizacion = 0;
+			PeriodoTasa = "";
 			
-		
-		
-		Optional<Cliente> optionalCliente = clienteRepository.findByNumDNI(cliente.getNumDNI());
-		Cliente clienteguardado = optionalCliente.get();
-		
-		Optional<Administrador> optionalAdministrador = administradorRepository.findByNAdministrador("Aldo Mendoza Marín");
-		Administrador administradorguardado = optionalAdministrador.get();
-		
-		
-		Linea lineaParaRegistrar=linea;
-		
-		
-		lineaParaRegistrar.setCliente(clienteguardado);
-		lineaParaRegistrar.setAdministrador(administradorguardado);
-		
-		lineaRepository.save(lineaParaRegistrar);
-		
-		return 1;
-		
+		} else {
+		PeriodoTasa = (LineaEncontradaDeCliente.getPeriodoTasa()).getNPeriodoTasa();
+			
+		Capitalizacion = LineaEncontradaDeCliente.getNCapitalizacion();
+			
 		}
-		else
 		
-		return 0;
+		//Calculamos ResultadoM
+		
+		switch (PeriodoTasa) {
+		case "Quincenal":
+			
+			ResultadoM = 15 / Capitalizacion;
+			
+			break;
+			
+		case "Mensual":
+			
+			ResultadoM=30/Capitalizacion;
+			
+			break;
+
+		case "Bimestral":
+			
+			ResultadoM=60/Capitalizacion;
+			
+			break;
+			
+		case "Trimestral":
+			
+			ResultadoM=90/Capitalizacion;
+			
+			break;
+			
+		case "Semestral":
+			
+			ResultadoM=180/Capitalizacion;
+			
+			break;
+			
+		default:
+			
+			ResultadoM = 0;
+			
+			break;
+		}
+		
+		Transaccion transacionactual = new Transaccion();
+		Transaccion transacionsiguiente = new Transaccion();
+		
+		List<Transaccion> ListadoTransacciones = lineaRepository.ListaDeTransaccionees(CCliente); 
+		
+		//For iiterando por cada transaccion
+		for (int i = 0; i < ListadoTransacciones.size(); i++) {
+			
+			transacionactual=ListadoTransacciones.get(i);
+			
+			
+			
+			m = transacionactual.getMonto();
+			
+			TipoMonto = transacionactual.isBTipo();
+			
+			
+			
+			
+			
+			//Obtener la diferencia de dias entre transaccion
+			if (i+1<ListadoTransacciones.size()) {
+				
+				transacionsiguiente=ListadoTransacciones.get(i+1);
+				tiempo = lineaRepository.DiferenciaEntreFecha(transacionsiguiente.getDFecha(), transacionactual.getDFecha());
+			} else {
+				tiempo = 0;
+			}
+			
+			
+			
+			
+			//Calcula el resultado total de la tasa
+			
+			if (TipoMonto==true) {
+				
+				mtotal = mtotal+m;
+				
+				resultado=0;
+				
+				switch (TipoTasa) {
+				case "Simple":
+					
+					resultado = mtotal*(1+(ValorTasa*(tiempo/360)));
+					
+					break;
+
+				case "Nominal":
+					
+					resultado = Math.pow(mtotal*(1+(ValorTasa/ResultadoM)), (tiempo/Capitalizacion))   ;
+					
+					break;
+					
+				case "Efectiva":
+					
+					resultado = Math.pow(mtotal*(1+ValorTasa), ((tiempo/Capitalizacion)/ResultadoM))   ;
+					
+					break;
+					
+				default: resultado = 0;
+					break;
+				}
+				
+				mtotal=(float) resultado;
+				
+				DeudasTotales=DeudasTotales+m;
+				
+				
+				
+				 
+				
+			} else {
+				
+				mtotal = mtotal - m;
+				
+				resultado=0;
+				switch (TipoTasa) {
+				case "Simple":
+					
+					resultado = mtotal*(1+(ValorTasa*(tiempo/360)));
+					
+					break;
+
+				case "Nominal":
+					
+					resultado = Math.pow(mtotal*(1+(ValorTasa/ResultadoM)), (tiempo/Capitalizacion))   ;
+					
+					break;
+					
+				case "Efectiva":
+					
+					resultado = Math.pow(mtotal*(1+ValorTasa), ((tiempo/Capitalizacion)/ResultadoM))   ;
+					
+					break;
+					
+				default: resultado = 0;
+					break;
+				}
+				
+				mtotal=(float) resultado;
+				
+				PagoTotal=PagoTotal+m;
+				
+				
+				
+				
+			}
+			
+			
+			
+			m=0;
+			TipoMonto = null;
+			tiempo = 0 ;
+			
+					
+			
+			
+		}
+		
+		
+		//Si supera el limite su tarjeta de credito
+		if (mtotal>=Limite) {
+			
+			respuestadesistema.setCreditoDisponible(0);
+			respuestadesistema.setDeudaTotal(mtotal);
+			respuestadesistema.setDeudaTotalSinIntereses(DeudasTotales-PagoTotal);
+			respuestadesistema.setInteresesGenerados(mtotal - (DeudasTotales - PagoTotal));
+			
+			
+			
+		}else {
+			
+			respuestadesistema.setCreditoDisponible(Limite-mtotal);
+			respuestadesistema.setDeudaTotal(mtotal);
+			respuestadesistema.setDeudaTotalSinIntereses( DeudasTotales-PagoTotal);
+			respuestadesistema.setInteresesGenerados(mtotal - (DeudasTotales - PagoTotal));
+			
+			
+		}
+		
+		
+		
+	
+		
+		
+		
+		
+		
+		
+		
+		
+		return respuestadesistema;
 	}
 
 	

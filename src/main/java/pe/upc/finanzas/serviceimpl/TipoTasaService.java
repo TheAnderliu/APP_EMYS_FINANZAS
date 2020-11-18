@@ -2,7 +2,7 @@ package pe.upc.finanzas.serviceimpl;
 
 import java.io.Serializable;
 import java.util.List;
-import java.util.Optional;
+
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -22,46 +22,51 @@ public class TipoTasaService implements ITipoTasaService, Serializable{
 
 	@Autowired
 	private ITipoTasaRepository tipotasaRepository;
-	
-	@Transactional
-	@Override
-	public TipoTasa save(TipoTasa entity) throws Exception {
-		// TODO Auto-generated method stub
-		return tipotasaRepository.save(entity);
-	}
 
 	@Transactional
 	@Override
-	public TipoTasa update(TipoTasa entity) throws Exception {
+	public Integer save(TipoTasa tipotasa) {
 		// TODO Auto-generated method stub
-		return tipotasaRepository.save(entity);
+		int rpta = tipotasaRepository.searchCTipoTasaTipoTasa(tipotasa.getCTipoTasa());
+		if (rpta==0) {
+			tipotasaRepository.save(tipotasa);
+		}
+		
+		return rpta;
+	}
+
+	@Transactional
+	@Override
+	public void update(TipoTasa tipotasa) {
+		// TODO Auto-generated method stub
+		tipotasaRepository.save(tipotasa);
+	}
+
+	@Transactional
+	@Override
+	public void delete(TipoTasa tipotasa) {
+		// TODO Auto-generated method stub
+		tipotasaRepository.delete(tipotasa);
 	}
 
 	@Override
-	public void deletedById(Long id) {
+	public TipoTasa finByID(Long CTipoTasa) {
 		// TODO Auto-generated method stub
-		tipotasaRepository.deleteById(id);
+		return tipotasaRepository.findByCTipoTasa(CTipoTasa);
 	}
 
-	@Transactional(readOnly = true)
 	@Override
-	public Optional<TipoTasa> findById(Long id) throws Exception {
-		// TODO Auto-generated method stub
-		return tipotasaRepository.findById(id);
-	}
-	
-	@Transactional(readOnly = true)
-	@Override
-	public List<TipoTasa> findAll() throws Exception {
+	public List<TipoTasa> findAll() {
 		// TODO Auto-generated method stub
 		return tipotasaRepository.findAll();
 	}
 
-	@Transactional(readOnly = true)
 	@Override
-	public List<TipoTasa> findByNTipoTasa(String NTipoTasa) throws Exception {
+	public List<TipoTasa> findByNTipoTasa(String NTipoTasa) {
 		// TODO Auto-generated method stub
 		return tipotasaRepository.findByNTipoTasa(NTipoTasa);
 	}
+	
+	
 
 }

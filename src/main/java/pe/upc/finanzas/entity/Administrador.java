@@ -27,20 +27,20 @@ public class Administrador implements Serializable {
 
 	@Id
 	/*@GeneratedValue(strategy = GenerationType.IDENTITY)*/
-	@Column(name = "id")
+	@Column(name = "CAdministrador")
 	private Long CAdministrador;
 	
 	
-	@Column(name="nombres_apellidos", length = 50, nullable=false)
+	@Column(name="NAdministrador", length = 50, nullable=false)
 	private String NAdministrador;
 	
 	@NotEmpty(message = "Debe Ingresar correo eletrónico*")
 	@Email(message = "Ingrese un verdadero correo electrónico*")
-	@Column(name="correo_electronico", length=30, nullable=false)
+	@Column(name="NCorreo", length=30, nullable=false)
 	private String NCorreo;
 	
 	@NotEmpty(message = "Debe ingresar contraseña*")
-	@Column(name="contraseña", length=10, nullable=false)
+	@Column(name="NContrasenia", length=10, nullable=false)
 	private String NContrasenia;
 	
 	@OneToMany(mappedBy = "Administrador", cascade = CascadeType.ALL)
@@ -48,6 +48,12 @@ public class Administrador implements Serializable {
 	
 	
 	public Administrador() {
+		
+		CAdministrador=(long)2;
+		NAdministrador="George Gutierrez";
+		NCorreo="huneterhot@gmail.com";
+		NContrasenia="123";
+		
 		
 		LineaCreditos=new ArrayList<Linea>();
 	}

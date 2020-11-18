@@ -22,46 +22,51 @@ public class TipoMantenimientoService implements ITipoMantenimientoService, Seri
 
 	@Autowired
 	private ITipoMantenimientoRepository tipomantenimientoRepository;
-	
-	@Transactional
-	@Override
-	public TipoMantenimiento save(TipoMantenimiento entity) throws Exception {
-		// TODO Auto-generated method stub
-		return tipomantenimientoRepository.save(entity);
-	}
 
 	@Transactional
 	@Override
-	public TipoMantenimiento update(TipoMantenimiento entity) throws Exception {
+	public Integer save(TipoMantenimiento tipoMantenimiento) {
 		// TODO Auto-generated method stub
-		return tipomantenimientoRepository.save(entity);
+		int rpta = tipomantenimientoRepository.searchCTipoMantenimientoTipoMantenimiento(tipoMantenimiento.getCTipoMantenimiento());
+		if (rpta==0) {
+			tipomantenimientoRepository.save(tipoMantenimiento);
+		}
+		
+		return rpta;
+	}
+
+	@Transactional
+	@Override
+	public void update(TipoMantenimiento tipoMantenimiento) {
+		// TODO Auto-generated method stub
+		tipomantenimientoRepository.save(tipoMantenimiento);
+	}
+
+	@Transactional
+	@Override
+	public void delete(TipoMantenimiento tipoMantenimiento) {
+		// TODO Auto-generated method stub
+		tipomantenimientoRepository.delete(tipoMantenimiento);
 	}
 
 	@Override
-	public void deletedById(Long id) {
+	public TipoMantenimiento findByID(Long CTipoMantenimiento) {
 		// TODO Auto-generated method stub
-		tipomantenimientoRepository.deleteById(id);
+		return tipomantenimientoRepository.findByCTipoMantenimiento(CTipoMantenimiento);
 	}
 
-	@Transactional(readOnly = true)
 	@Override
-	public Optional<TipoMantenimiento> findById(Long id) throws Exception {
-		// TODO Auto-generated method stub
-		return tipomantenimientoRepository.findById(id);
-	}
-
-	@Transactional(readOnly = true)
-	@Override
-	public List<TipoMantenimiento> findAll() throws Exception {
+	public List<TipoMantenimiento> findAll() {
 		// TODO Auto-generated method stub
 		return tipomantenimientoRepository.findAll();
 	}
 
-	@Transactional(readOnly = true)
 	@Override
 	public List<TipoMantenimiento> findByNTipoMantenimiento(String NTipoMantenimiento) {
 		// TODO Auto-generated method stub
 		return tipomantenimientoRepository.findByNTipoMantenimiento(NTipoMantenimiento);
 	}
+	
+	
 
 }

@@ -6,7 +6,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
-    <title>Registrar linea de crédito - EMYS</title>
+    <title>Registrar cliente - EMYS</title>
     <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i">
     <link rel="stylesheet" href="assets/fonts/fontawesome-all.min.css">
@@ -27,8 +27,8 @@
                 <ul class="nav navbar-nav text-light" id="accordionSidebar">
                     <li class="nav-item" role="presentation"><a class="nav-link" th:href="@{/dashboard}"><i class="fas fa-tachometer-alt"></i><span>Dashboard</span></a></li>
                     <li class="nav-item" role="presentation"></li>
-                    <li class="nav-item" role="presentation"><a class="nav-link" th:href="@{/registrarcliente}"><i class="fas fa-file-signature"></i><span>Registrar Cliente</span></a></li>
-                    <li class="nav-item" role="presentation"><a class="nav-link active" th:href="@{/registrarlineadecredito}"><i class="fas fa-file-signature"></i><span>Registrar Línea de Crédito</span></a></li>
+                    <li class="nav-item" role="presentation"><a class="nav-link active" th:href="@{/registrarcliente}"><i class="fas fa-file-signature"></i><span>Registrar Cliente</span></a></li>
+                    <li class="nav-item" role="presentation"><a class="nav-link" th:href="@{/registrarlineadecredito}"><i class="fas fa-file-signature"></i><span>Registrar Línea de Crédito</span></a></li>
                     <li class="nav-item" role="presentation"><a class="nav-link" th:href="@{/registrartransaccion}"><i class="material-icons">monetization_on</i><span>Registrar Transacción</span></a></li>
                     <li class="nav-item" role="presentation"><a class="nav-link" th:href="@{/clientes}" style="opacity: 1;"><i class="fas fa-users" style="margin: -2px;"></i><span style="margin: 6px;">Clientes</span></a></li>
                 </ul>
@@ -61,7 +61,7 @@
             </div>
             </nav>
             <div class="container-fluid">
-                <h3 class="text-dark mb-4">Registrar Línea de Crédito</h3>
+                <h3 class="text-dark mb-4">Registrar Cliente</h3>
                 <div class="row mb-3">
                     <div class="col">
                         <div class="row mb-3 d-none">
@@ -96,66 +96,43 @@
                         </div>
                         <div class="row">
                             <div class="col">
-                                <div class="card shadow">
+                                <div class="card shadow mb-3">
                                     <div class="card-header py-3">
-                                        <p class="text-primary m-0 font-weight-bold">Datos de la línea de crédito</p>
+                                        <p class="text-primary m-0 font-weight-bold">Datos personales del cliente</p>
                                     </div>
                                     <div class="card-body">
-                                        <form th:action="@{/insertarLinea}" th:object="${linea}"  method="post">
-                                            <div class="form-group"><label for="fechadeemision"><strong>Cliente</strong></label><select class="custom-select" name="Cliente" th:field="*{Cliente}" style="margin-top: 10px;" th:errorclass="'form-control alert-danger'" ><option th:each="cliente : ${listadoClientes}" th:value="${cliente.CCliente}" th:text="${cliente.NNombre} + ' ' + ${cliente.NApellido}">Jorge Antonio Terrones Huarcaya</option></select></div>
-                                            <div
-                                                class="form-group"><label for="DFechaEmision"><strong>Fecha de emisión</strong></label><input class="form-control" type="date" th:field="*{DFechaEmision}" th:errorclass="'form-control alert-danger'"> <small
-									class="form-text text-danger"
-									th:if="${#fields.hasErrors('DFechaEmision')}" th:errors="*{DFechaEmision}"></small> </div>
-                                    <div class="form-row">
-                                        <div class="col-sm-12 col-md-6 col-lg-6 col-xl-6">
-                                            <div class="form-group"><label for="city"><strong>Tipo de moneda</strong></label><select class="custom-select" th:field="*{TipoMoneda}" th:errorclass="'form-control alert-danger'"><option th:each="tipomoneda : ${listadoTipomoneda}" th:value="${tipomoneda.CTipoMoneda}" th:text="${tipomoneda.NTipoMoneda}">This is item 1</option></select></div>
-                                        </div>
-                                        <div class="col-sm-12 col-md-6 col-lg-6 col-xl-6">
-                                            <div class="form-group"><label for="NumCredito"><strong>Crédito</strong></label><input class="form-control" type="text" placeholder="USA" name="credito" th:field="*{NumCredito}" th:errorclass="'form-control alert-danger'"> <small
-									class="form-text text-danger"
-									th:if="${#fields.hasErrors('NumCredito')}" th:errors="*{NumCredito}"></small> </div>
-                                        </div>
-                                    </div>
-                                    <div class="form-row">
-                                        <div class="col-sm-12 col-md-6 col-lg-6 col-xl-6">
-                                            <div class="form-group"><label for="city"><strong>Tipo de Tasa de interés</strong></label><select class="custom-select" th:field="*{TipoTasa}" th:errorclass="'form-control alert-danger'"><option th:each="tipotasa : ${listadoTipotasa}" th:value="${tipotasa.CTipoTasa}" th:text="${tipotasa.NTipoTasa}">This is item 1</option></select></div>
-                                        </div>
-                                        <div class="col-sm-12 col-md-6 col-lg-6 col-xl-6">
-                                            <div class="form-group"><label for="country"><strong>Tasa de interés (%)</strong></label><input class="form-control" type="text" placeholder="USA" name="credito" th:field="*{NTasa}" th:errorclass="'form-control alert-danger'"></div>
-                                        </div>
-                                    </div>
-                                    <div class="form-row">
-                                        <div class="col-sm-12 col-md-6 col-lg-6 col-xl-6">
-                                            <div class="form-group"><label for="NCapitalizacion"><strong>Capitalización (en días)</strong></label><input class="form-control" type="text" placeholder="USA" name="credito" th:field="*{NCapitalizacion}" th:errorclass="'form-control alert-danger'"> <small
-									class="form-text text-danger"
-									th:if="${#fields.hasErrors('NCapitalizacion')}" th:errors="*{NCapitalizacion}"></small> </div>
-                                        </div>
-                                        <div class="col-sm-12 col-md-6 col-lg-6 col-xl-6">
-                                            <div class="form-group"><label for="country"><strong>Periodo de la Tasa</strong></label><select class="custom-select" th:field="*{PeriodoTasa}" th:errorclass="'form-control alert-danger'"><option th:each="periodotasa : ${listadoPeriodotasa}" th:value="${periodotasa.CPeriodoTasa}" th:text="${periodotasa.NPeriodoTasa}">This is item 1</option></select></div>
-                                        </div>
-                                    </div>
-                                    <div class="form-row">
-                                        <div class="col-sm-12 col-md-6 col-lg-6 col-xl-6">
-                                            <div class="form-group"><label for="anio"><strong>Año (en días)</strong></label><input class="form-control" type="text" placeholder="360" name="anio" disabled="" ></div>
-                                        </div>
-                                        <div class="col">
+                                        <form th:action="@{/insertarCliente}" th:object="${cliente}" method="post">
                                             <div class="form-row">
-                                                <div class="col">
-                                                    <div class="form-group"><label for="country"><strong>Cargo por mantenimiento de cuenta (2.50)</strong></label><select class="custom-select" th:field="*{TipoMantenimiento}" th:errorclass="'form-control alert-danger'"><option th:each="tipomantenimiento : ${listadoTipomantenimiento}" th:value="${tipomantenimiento.CTipoMantenimiento}" th:text="${tipomantenimiento.NTipoMantenimiento}">Mensual</option></select></div>
+                                                <div class="col-sm-12 col-md-6 col-lg-6 col-xl-6">
+                                                    <div class="form-group"><label for="NNombre"><strong>Nombres</strong></label><input class="form-control" type="text" name="NNombre" th:field="*{NNombre}" th:errorclass="'form-control alert-danger'" /> <small
+									class="form-text text-danger"
+									th:if="${#fields.hasErrors('NNombre')}" th:errors="*{NNombre}"></small> </div>
+                                                </div>
+                                                <div class="col-sm-12 col-md-6 col-lg-6 col-xl-6">
+                                                    <div class="form-group"><label for="NApellido"><strong>Apellidos</strong></label><input class="form-control" type="text" name="NApellido" th:field="*{NApellido}" th:errorclass="'form-control alert-danger'" /> <small
+									class="form-text text-danger"
+									th:if="${#fields.hasErrors('NApellido')}" th:errors="*{NApellido}"></small> </div>
                                                 </div>
                                             </div>
-                                        </div>
-                                        <p th:text="${mensaje}" class="form-text text-danger"></p>
+                                            <div class="form-row">
+                                                <div class="col-sm-12 col-md-6 col-lg-6 col-xl-6">
+                                                    <div class="form-group"><label for="numTelefono"><strong>Telefono</strong></label><input class="form-control" type="number" name="numTelefono" th:field="*{numTelefono}" th:errorclass="'form-control alert-danger'" /> <small
+									class="form-text text-danger"
+									th:if="${#fields.hasErrors('numTelefono')}" th:errors="*{numTelefono}"></small> </div>
+                                                </div>
+                                                <div class="col-sm-12 col-md-6 col-lg-6 col-xl-6">
+                                                    <div class="form-group"><label for="numDNI"><strong>DNI</strong></label><input class="form-control" type="text" name="numDNI" inputmode="numeric" th:field="*{numDNI}" th:errorclass="'form-control alert-danger'" /> <small
+									class="form-text text-danger"
+									th:if="${#fields.hasErrors('numDNI')}" th:errors="*{numDNI}"></small> </div>
+                                                </div>
+                                            </div>
+                                            <p th:text="${mensaje}" class="form-text text-danger"></p>
+                                            <div class="col"><a class="btn btn-primary btn-lg" role="button" style="width: 169px;margin-right: 25px;margin-top: 10px;margin-left: -12px;padding-right: 17px;" th:href="@{/dashboard}">Cancelar</a><input class="btn btn-primary btn-lg"
+                                                type="submit" style="width: 169px;margin-top: 10px;margin-left: -11px;" value="Registrar"></input></div>
+                                        	
+                                        </form>
+                                        
                                     </div>
-                                    
-                                    <div class="row">
-                                        <div class="col-auto"><a class="btn btn-primary btn-lg" style="width: 169px;margin-right: 22px;margin-top: 10px;" th:href="@{/dashboard}">Cancelar</a></div>
-                                        <div class="col"><input class="btn btn-primary btn-lg" type="submit" style="width: 169px;margin-top: 10px;" value="Registrar"></input></div>
-                                    </div>
-                                    
-                                    </form>
-                                    
                                 </div>
                             </div>
                         </div>
@@ -163,10 +140,9 @@
                 </div>
             </div>
         </div>
-    </div>
     </div><a class="border rounded d-inline scroll-to-top" href="#page-top"><i class="fas fa-angle-up"></i></a></div>
     <script src="assets/js/jquery.min.js"></script>
-    <script src="assets/bootstrap/js/bootstrap.min.js"></script>
+        <script src="assets/bootstrap/js/bootstrap.min.js"></script>
     <script src="assets/js/bs-init.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.js"></script>
     <script src="assets/js/theme.js"></script>

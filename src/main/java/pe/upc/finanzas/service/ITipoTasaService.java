@@ -4,7 +4,17 @@ import java.util.List;
 
 import pe.upc.finanzas.entity.TipoTasa;
 
-public interface ITipoTasaService extends CrudService<TipoTasa, Long>{
+public interface ITipoTasaService{
 
-	List<TipoTasa> findByNTipoTasa(String NTipoTasa) throws Exception;
+	public Integer save(TipoTasa tipotasa);
+	
+	public void update(TipoTasa tipotasa);
+	
+	public void delete(TipoTasa tipotasa);
+	
+	public TipoTasa finByID(Long CTipoTasa);
+	
+	public List<TipoTasa> findAll();
+	
+	List<TipoTasa> findByNTipoTasa(String NTipoTasa);
 }

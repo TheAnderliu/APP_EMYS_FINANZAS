@@ -14,7 +14,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "Tipo_Tasa")
+@Table(name = "TipoTasa")
 public class TipoTasa implements Serializable{
 
 	/**
@@ -23,10 +23,10 @@ public class TipoTasa implements Serializable{
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@Column(name = "id")
+	@Column(name = "CTipoTasa")
 	private Long CTipoTasa;
 	
-	@Column(name ="nombre_tipo_tasa", nullable=false)
+	@Column(name ="NTipoTasa", nullable=false)
 	private String NTipoTasa;
 
 	@OneToMany(mappedBy = "TipoTasa", cascade = CascadeType.ALL)
@@ -52,7 +52,7 @@ public class TipoTasa implements Serializable{
 		return CTipoTasa;
 	}
 
-	public void setCTipo_Tasa(Long cTipoTasa) {
+	public void setCTipoTasa(Long cTipoTasa) {
 		CTipoTasa = cTipoTasa;
 	}
 

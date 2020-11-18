@@ -21,10 +21,10 @@ public class TipoMoneda implements Serializable{
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@Column(name = "id")
+	@Column(name = "CTipoMoneda")
 	private Long CTipoMoneda;
 	
-	@Column(name ="tipo_moneda", nullable=false)
+	@Column(name ="NTipoMoneda", nullable=false)
 	private String NTipoMoneda;
 	
 	@OneToMany(mappedBy = "TipoMoneda", cascade = CascadeType.ALL)

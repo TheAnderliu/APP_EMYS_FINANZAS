@@ -35,31 +35,31 @@ public class Linea implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "id")
+	@Column(name = "CLinea")
 	private Long CLinea;
 	
 	@NotNull(message = "Debe ingresar fecha*")
 	@Temporal(TemporalType.DATE)	
-	@DateTimeFormat(pattern = "dd-MM-yyyy")
-	@Column(name="fecha_emision", nullable=false)
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
+	@Column(name="DFechaEmision")
 	private Date DFechaEmision;
 	
-	@Column(name="numero_mantenimiento", nullable=false)
+	@Column(name="NumMantenimiento", nullable=false)
 	private float NumMantenimiento;
 	
-	@NotEmpty(message = "Debe ingresar el límite del crédito*")
-	@Column(name="credito", nullable=false)
-	private int $Credito;
+	@NotNull(message = "Debe ingresar el límite del crédito*")
+	@Column(name="NumCredito", nullable=false)
+	private int NumCredito;
 	
-	@NotEmpty(message = "Debe ingresar el porcentaje de la tasa*")
-	@Column(name="porcentaje_tasa")
+	@NotNull(message = "Debe ingresar el porcentaje de la tasa*")
+	@Column(name="NTasa")
 	private float NTasa;
 	
-	@NotEmpty(message = "Debe ingresar el número de días de la capitalización*")
-	@Column(name="capitalizacion_dias", nullable=false)
+	@NotNull(message = "Debe ingresar el número de días de la capitalización*")
+	@Column(name="NCapitalizacion", nullable=false)
 	private int NCapitalizacion;
 	
-	@Column(name="dias_año", nullable=false)
+	@Column(name="NumAnio", nullable=false)
 	private int NumAnio;
 	
 	
@@ -76,21 +76,21 @@ public class Linea implements Serializable {
 	private Administrador Administrador;
 	
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name="tipo_moneda_id")
+	@JoinColumn(name="tipomoneda_id")
 	private TipoMoneda TipoMoneda;
 	
 	
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name="tipo_mantenimiento_id")
+	@JoinColumn(name="tipomantenimiento_id")
 	private TipoMantenimiento TipoMantenimiento;
 	
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name="tipo_tasa_id")
+	@JoinColumn(name="tipotasa_id")
 	private TipoTasa TipoTasa;
 	
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name="periodo_tasa_id")
-	private Periodo_Tasa Periodo_Tasa;
+	@JoinColumn(name="periodotasa_id")
+	private PeriodoTasa PeriodoTasa;
 
 	@OneToMany(mappedBy = "linea", cascade = CascadeType.ALL)
 	private List<Transaccion> Transacciones;
@@ -128,26 +128,32 @@ public class Linea implements Serializable {
 
 
 
-	public TipoTasa getTipo_Tasa() {
+
+
+	public TipoTasa getTipoTasa() {
 		return TipoTasa;
 	}
 
 
 
-	public void setTipo_Tasa(TipoTasa tipo_Tasa) {
-		TipoTasa = tipo_Tasa;
+	public void setTipoTasa(TipoTasa tipoTasa) {
+		TipoTasa = tipoTasa;
 	}
 
 
 
-	public Periodo_Tasa getPeriodo_Tasa() {
-		return Periodo_Tasa;
+	
+
+
+
+	public PeriodoTasa getPeriodoTasa() {
+		return PeriodoTasa;
 	}
 
 
 
-	public void setPeriodo_Tasa(Periodo_Tasa periodo_Tasa) {
-		Periodo_Tasa = periodo_Tasa;
+	public void setPeriodoTasa(PeriodoTasa periodoTasa) {
+		PeriodoTasa = periodoTasa;
 	}
 
 
@@ -206,12 +212,12 @@ public class Linea implements Serializable {
 		NumMantenimiento = numMantenimiento;
 	}
 
-	public int get$Credito() {
-		return $Credito;
+	public int getNumCredito() {
+		return NumCredito;
 	}
 
-	public void set$Credito(int $Credito) {
-		this.$Credito = $Credito;
+	public void setNumCredito(int NumCredito) {
+		this.NumCredito = NumCredito;
 	}
 
 	public float getNTasa() {
@@ -237,6 +243,10 @@ public class Linea implements Serializable {
 	public void setNumAnio(int numAnio) {
 		NumAnio = numAnio;
 	}
+
+
+
+	
 	
 	
 	

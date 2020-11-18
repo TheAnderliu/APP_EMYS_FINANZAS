@@ -24,60 +24,69 @@ public class TransaccionService implements ITransaccionService, Serializable{
 
 	@Autowired
 	private ITransaccionRepository transaccionRepository;
-	
-	@Transactional
-	@Override
-	public Transaccion save(Transaccion entity) throws Exception {
-		// TODO Auto-generated method stub
-		return transaccionRepository.save(entity);
-	}
 
 	@Transactional
 	@Override
-	public Transaccion update(Transaccion entity) throws Exception {
+	public Integer save(Transaccion transaccion) {
 		// TODO Auto-generated method stub
-		return transaccionRepository.save(entity);
+		int rpta = transaccionRepository.searchCTransaccionTransaccion(transaccion.getCTransaccion());
+		if (rpta==0) {
+			transaccionRepository.save(transaccion);
+		}
+		
+		return rpta;
+	}
+
+	@Transactional
+	@Override
+	public void update(Transaccion transaccion) {
+		// TODO Auto-generated method stub
+		transaccionRepository.save(transaccion);
+	}
+
+	@Transactional
+	@Override
+	public void delete(Transaccion transaccion) {
+		// TODO Auto-generated method stub
+		transaccionRepository.delete(transaccion);
 	}
 
 	@Override
-	public void deletedById(Long id) {
+	public Transaccion findByID(Long CTransaccion) {
 		// TODO Auto-generated method stub
-		transaccionRepository.deleteById(id);
+		return transaccionRepository.findByCTransaccion(CTransaccion);
 	}
 
-	@Transactional(readOnly = true)
 	@Override
-	public Optional<Transaccion> findById(Long id) throws Exception {
-		// TODO Auto-generated method stub
-		return transaccionRepository.findById(id);
-	}
-
-	@Transactional(readOnly = true)
-	@Override
-	public List<Transaccion> findAll() throws Exception {
+	public List<Transaccion> findAll() {
 		// TODO Auto-generated method stub
 		return transaccionRepository.findAll();
 	}
 
-	@Transactional(readOnly = true)
 	@Override
-	public List<Transaccion> findByDFecha(Date DFecha) throws Exception {
+	public List<Transaccion> findByDFecha(Date DFecha) {
 		// TODO Auto-generated method stub
 		return transaccionRepository.findByDFecha(DFecha);
 	}
-	
-	@Transactional(readOnly = true)
+
 	@Override
-	public List<Transaccion> findByBTipo(boolean BTipo) throws Exception {
+	public List<Transaccion> findByBTipo(boolean BTipo) {
 		// TODO Auto-generated method stub
 		return transaccionRepository.findByBTipo(BTipo);
 	}
 
-	@Transactional(readOnly = true)
 	@Override
-	public List<Transaccion> findByLinea(Linea Linea) throws Exception {
+	public List<Transaccion> encontrarporLinea(Long CLinea) {
 		// TODO Auto-generated method stub
-		return transaccionRepository.findByLinea(Linea);
+		return transaccionRepository.encontrarporLinea(CLinea);
 	}
+
+	@Override
+	public List<Transaccion> encontrartransaccionentrefechas(Date DesdeFecha, Date HastaFecha) {
+		// TODO Auto-generated method stub
+		return transaccionRepository.encontrartransaccionentrefechas(DesdeFecha, HastaFecha);
+	}
+	
+	
 
 }
