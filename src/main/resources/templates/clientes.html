@@ -85,8 +85,12 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr th:each="cliente : ${listadoClientes}">
+                                
+                                    <tr th:each="cliente : ${listadoClientes}" >
+                                   
+                                    
                                         <td th:text="${cliente.CCliente}">1</td>
+                                        
                                         <td th:text="${cliente.NNombre}">Jorge Antonio</td>
                                         <td th:text="${cliente.NApellido}">Terrones Huarcaya</td>
                                         <td th:text="${cliente.numDNI}">72260854</td>
@@ -95,9 +99,17 @@
                                         	<span class="badge badge-success d-xl-flex justify-content-xl-center align-items-xl-center" style="height: 32px;padding-top: 4px;padding-bottom: 4px;width: 92px;" th:if="${cliente.BEstado} == true">HABILITADO</span>
                                         	<span class="badge badge-warning d-xl-flex justify-content-xl-center align-items-xl-center" style="height: 32px;padding-top: 4px;padding-bottom: 4px;width: 92px;" th:if="${cliente.BEstado} == false">DEUDOR</span>
                                         </td>
-                                        <td class="text-center" style="height: 61px;"><a class="btn btn-primary" role="button" style="height: 33px;padding-bottom: 4px;padding-top: 4px;width: 64px;" href="clienteseleccionado.html">Ver</a></td>
-                                    </tr>
+                                        <td class="text-center" style="height: 61px;"> <form th:action="@{/clienteseleccionado}" method="post" th:object="${cliente}" >
+                                        <input type="hidden"  th:value="*{NNombre}" id="NNombre" name="NNombre">
+                                        <input type="hidden"  th:value="*{NApellido}" id="NApellido" name="NApellido">
+                                        <input type="hidden"  th:value="*{CCliente}" id="CCliente" name="CCliente">
+                                        <input type="hidden"  th:value="*{numDNI}" id="numDNI" name="numDNI">
+                                        <input type="hidden"  th:value="*{numTelefono}" id="numTelefono" name="numTelefono">
+                                        <input type="hidden"  th:value="*{BEstado}" id="BEstado" name="BEstado">
+                                        <input class="btn btn-primary" role="button" style="height: 33px;padding-bottom: 4px;padding-top: 4px;width: 64px;" type="submit" value="Ver"></input> </form></td>
                                    
+                                    </tr>
+                                 
                                 </tbody>
                             </table>
                         </div>

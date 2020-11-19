@@ -4,6 +4,7 @@ import java.io.Serializable;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.Transient;
 
 @Entity
 public class Sistema implements Serializable{
@@ -16,12 +17,16 @@ public class Sistema implements Serializable{
 	@Id
 	private Long CSistema;
 	
+	@Transient
 	private float DeudaTotalSinIntereses;
 	
+	@Transient
 	private float DeudaTotal;
 	
+	@Transient
 	private float InteresesGenerados;
 	
+	@Transient
 	private float CreditoDisponible;
 
 	

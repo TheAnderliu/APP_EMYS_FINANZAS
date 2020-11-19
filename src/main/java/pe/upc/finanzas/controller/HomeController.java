@@ -62,6 +62,7 @@ public class HomeController {
 	@GetMapping("/clientes")
 	public String MostrarClientes(Model model) {
 		
+		model.addAttribute("cliente", new Cliente());
 		model.addAttribute("listadoClientes", clienteService.findAll());
 		
 		return "clientes";

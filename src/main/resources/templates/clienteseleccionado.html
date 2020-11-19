@@ -65,7 +65,7 @@
                     <h3 class="text-dark mb-1">Cliente</h3>
                 </div>
                 <div class="col-auto d-lg-flex align-items-lg-center">
-                    <h4 class="text-dark mb-1">Jorge Antonio Terrones Huarcaya<br></h4>
+                    <h4 class="text-dark mb-1" th:text="${cliente.NNombre} + ' ' + ${cliente.NApellido}">Jorge Antonio Terrones Huarcaya<br></h4>
                 </div>
                 <div class="col"><a class="btn btn-primary" role="button" style="padding-left: 16px;padding-right: 16px;margin-left: 0px;height: 36px;" href="lineadecredito.html">Ver</a></div>
                 <div class="col-auto">
@@ -316,21 +316,21 @@
                                     <p class="text-primary m-0 font-weight-bold">Resultados</p>
                                 </div>
                                 <div class="card-body">
-                                    <form>
+                                    <form >
                                         <div class="form-row">
                                             <div class="col">
-                                                <div class="form-group"><label for="username"><strong>Totales</strong><br></label><input class="form-control" type="text" placeholder="123456" disabled=""></div>
+                                                <div class="form-group"><label for="username"><strong>Totales</strong><br></label><input class="form-control" type="text" placeholder="123456" disabled="" th:value="${resultadosistema.DeudaTotalSinIntereses}"></div>
                                             </div>
                                             <div class="col">
-                                                <div class="form-group"><label for="username"><strong>Intereses generados</strong><br></label><input class="form-control" type="text" placeholder="123456" disabled=""></div>
+                                                <div class="form-group"><label for="username"><strong>Intereses generados</strong><br></label><input class="form-control" type="text" placeholder="123456" disabled="" th:value="${resultadosistema.InteresesGenerados}"></div>
                                             </div>
                                         </div>
                                         <div class="form-row">
                                             <div class="col">
-                                                <div class="form-group"><label for="first_name"><strong>Crédito disponible</strong></label><input class="form-control" type="text" placeholder="123456" disabled=""></div>
+                                                <div class="form-group"><label for="first_name"><strong>Crédito disponible</strong></label><input class="form-control" type="text" placeholder="123456" disabled="" th:value="${resultadosistema.CreditoDisponible}"></div>
                                             </div>
                                             <div class="col">
-                                                <div class="form-group"><label for="last_name"><strong>Deuda total</strong></label><input class="form-control" type="text" placeholder="123456" disabled=""></div>
+                                                <div class="form-group"><label for="last_name"><strong>Deuda total</strong></label><input class="form-control" type="text" placeholder="123456" disabled="" th:value="${resultadosistema.DeudaTotal}"></div>
                                             </div>
                                         </div>
                                     </form>

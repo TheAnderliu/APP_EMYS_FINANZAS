@@ -53,7 +53,7 @@ public class ClienteService implements IClienteService, Serializable {
 	@Override
 	public Cliente findByID(Long CCliente) {
 		// TODO Auto-generated method stub
-		return clienteRepository.findByCCliente(CCliente);
+		return clienteRepository.findByCClienteCliente(CCliente);
 	}
 
 	@Override

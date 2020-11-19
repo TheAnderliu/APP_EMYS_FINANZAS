@@ -66,7 +66,7 @@ public class Linea implements Serializable {
 /*	@OneToOne(mappedBy = "Linea")
     private Cliente Cliente;
 */	
-	@OneToOne
+	@OneToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "cliente_id")
 	private Cliente Cliente;
 	

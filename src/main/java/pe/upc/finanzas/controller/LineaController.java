@@ -10,12 +10,16 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.support.SessionStatus;
 
 import pe.upc.finanzas.entity.Cliente;
 import pe.upc.finanzas.entity.Linea;
+import pe.upc.finanzas.entity.Sistema;
 import pe.upc.finanzas.service.IClienteService;
 import pe.upc.finanzas.service.ILineaService;
 
@@ -24,6 +28,9 @@ public class LineaController {
 
 	@Autowired
 	private ILineaService lineaService;
+	
+	@Autowired
+	private IClienteService clienteService;
 	
 	
 	
@@ -60,5 +67,26 @@ public class LineaController {
 		
 		return "registrarlineadecredito";
 	}
+	
+	
+	@PostMapping("/clienteseleccionado")
+	public String verDetalleLinea(Cliente cliente, Model model,  BindingResult result) {
+		
+		
+		
+		
+		model.addAttribute("cliente", cliente);
+		
+		model.addAttribute("resultadosistema", lineaService.Resultados(cliente));
+		
+		
+		return "clienteseleccionado";
+		
+		
+		
+	}
+	
+	
+	
 	
 }

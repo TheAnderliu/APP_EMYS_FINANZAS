@@ -8,6 +8,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import pe.upc.finanzas.entity.Cliente;
 import pe.upc.finanzas.entity.Linea;
 import pe.upc.finanzas.entity.Transaccion;
 
@@ -18,22 +19,22 @@ public interface ILineaRepository extends JpaRepository<Linea, Long>{
 	public int searchCLineaLinea(@Param("CLinea")Long CLinea);
 	
 	@Query("select e from Linea e where e.CLinea = :CLinea")
-	public Linea findByCLinea(@Param("CLinea")Long CLinea);
+	public Linea findByCLineaLinea(@Param("CLinea")Long CLinea);
 	
 	@Query("select e from Linea e where e.DFechaEmision = :DFechaEmision")
 	List<Linea> findByDFechaEmision(@Param("DFechaEmision")Date DFechaEmision);
 	
 	
-	@Query("select e from Linea e where e.Cliente = :CCliente")
-	public Linea findByCCliente(@Param("CCliente") Long CCliente);
+	@Query("select e from Linea e where e.Cliente = :cliente")
+	public Linea findByCliente(Cliente cliente);
 	
 	
-	@Query("select count(e.CTransaccion) from Transaccion e where e.linea =:CLinea")
-	public int CantidadDeTransaccionesPorLinea(@Param("CLinea")Long CLinea);
+	@Query("select count(e.CTransaccion) from Transaccion e where e.linea =:Linea")
+	public int CantidadDeTransaccionesPorLinea(@Param("Linea")Linea Linea);
 	
 	
-	@Query("select e.CTransaccion from Transaccion e where e.linea =:CLinea order by e.DFecha ASC")
-	List<Transaccion> ListaDeTransaccionees(@Param("CLinea")Long CLinea); 
+	@Query("select e from Transaccion e where e.linea =:Linea order by e.DFecha ASC")
+	List<Transaccion> ListaDeTransaccionees(@Param("Linea")Linea Linea); 
 	
 	
 	@Query(value = "select datediff(:FechaMayor, :FechaMenor)", nativeQuery = true)

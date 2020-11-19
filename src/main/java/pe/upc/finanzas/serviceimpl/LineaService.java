@@ -32,6 +32,9 @@ public class LineaService implements ILineaService, Serializable{
 	@Autowired
 	private ILineaRepository lineaRepository;
 	
+	@Autowired
+	private IClienteRepository clienteRepository;
+	
 	
 	
 	@Transactional
@@ -68,7 +71,7 @@ public class LineaService implements ILineaService, Serializable{
 	@Override
 	public Linea findByID(Long CLinea) {
 		// TODO Auto-generated method stub
-		return lineaRepository.findByCLinea(CLinea);
+		return lineaRepository.findByCLineaLinea(CLinea);
 	}
 
 
@@ -89,7 +92,7 @@ public class LineaService implements ILineaService, Serializable{
 
 
 	@Override
-	public Sistema Resultados(Long CCliente) {
+	public Sistema Resultados(Cliente cliente) {
 		
 		
 		//Iniciciamos la variable de Sistema
@@ -97,10 +100,10 @@ public class LineaService implements ILineaService, Serializable{
 		Sistema respuestadesistema = new Sistema();
 		
 		//Traemos la linea del cliente
-		Linea LineaEncontradaDeCliente= lineaRepository.findByCCliente(CCliente);
+		Linea LineaEncontradaDeCliente= lineaRepository.findByCliente(cliente);
 		
 		//Contamos cuántas transacciones totales tiene (para luego iterar)
-		int CantidadDeTransacciones =lineaRepository.CantidadDeTransaccionesPorLinea(LineaEncontradaDeCliente.getCLinea());
+		int CantidadDeTransacciones =lineaRepository.CantidadDeTransaccionesPorLinea(LineaEncontradaDeCliente);
 		
 		
 		//Obtenemos los datos de la linea
@@ -193,7 +196,7 @@ public class LineaService implements ILineaService, Serializable{
 		Transaccion transacionactual = new Transaccion();
 		Transaccion transacionsiguiente = new Transaccion();
 		
-		List<Transaccion> ListadoTransacciones = lineaRepository.ListaDeTransaccionees(CCliente); 
+		List<Transaccion> ListadoTransacciones = lineaRepository.ListaDeTransaccionees(LineaEncontradaDeCliente); 
 		
 		//For iiterando por cada transaccion
 		for (int i = 0; i < ListadoTransacciones.size(); i++) {

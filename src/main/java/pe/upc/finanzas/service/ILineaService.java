@@ -21,5 +21,5 @@ public interface ILineaService{
 	
 	List<Linea> findByDFechaEmision(Date DFechaEmision);
 	
-	public Sistema Resultados(Long CCliente);
+	public Sistema Resultados(Cliente cliente);
 }

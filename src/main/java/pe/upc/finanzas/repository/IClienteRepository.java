@@ -7,6 +7,7 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import pe.upc.finanzas.entity.Cliente;
+import pe.upc.finanzas.entity.Linea;
 
 @Repository
 public interface IClienteRepository extends JpaRepository<Cliente, Long>{
@@ -15,7 +16,7 @@ public interface IClienteRepository extends JpaRepository<Cliente, Long>{
 	public int searchCClienteCliente(@Param("CCliente")Long CCliente);
 	
 	@Query("select e from Cliente e where e.CCliente = :CCliente")
-	public Cliente findByCCliente(@Param("CCliente")Long CCliente);
+	public Cliente findByCClienteCliente(@Param("CCliente")Long CCliente);
 	
 	@Query("select e from Cliente e where e.numTelefono = :numTelefono")
 	public Cliente findByNumTelefono(@Param("numTelefono")int numTelefono);
@@ -25,4 +26,7 @@ public interface IClienteRepository extends JpaRepository<Cliente, Long>{
 	
 	@Query("select e from Cliente e where e.numDNI = :numDNI")
 	public Cliente findByNumDNI(@Param("numDNI")String numDNI);
+	
+	
+	
 }
