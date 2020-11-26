@@ -52,7 +52,7 @@
                             </li>
                             <div class="d-none d-sm-block topbar-divider"></div>
                             <li class="nav-item dropdown no-arrow" role="presentation">
-                                <div class="nav-item dropdown no-arrow"><a class="dropdown-toggle nav-link" data-toggle="dropdown" aria-expanded="false" href="#"><span class="d-none d-lg-inline mr-2 text-gray-600 small">Valerie Luna</span><i class="fa fa-user-circle" style="font-size: 26px;"></i></a>
+                                <div class="nav-item dropdown no-arrow"><a class="dropdown-toggle nav-link" data-toggle="dropdown" aria-expanded="false" href="#"><span class="d-none d-lg-inline mr-2 text-gray-600 small">Admin Emys</span><i class="fa fa-user-circle" style="font-size: 26px;"></i></a>
                                     <div
                                         class="dropdown-menu shadow dropdown-menu-right animated--grow-in" role="menu"><a class="dropdown-item" role="presentation" href="#"><i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>&nbsp;Cerrar sesión</a></div>
                     </div>
@@ -67,7 +67,22 @@
                 <div class="col-auto d-lg-flex align-items-lg-center">
                     <h4 class="text-dark mb-1" th:text="${cliente.NNombre} + ' ' + ${cliente.NApellido}">Jorge Antonio Terrones Huarcaya<br></h4>
                 </div>
-                <div class="col"><a class="btn btn-primary" role="button" style="padding-left: 16px;padding-right: 16px;margin-left: 0px;height: 36px;" href="lineadecredito.html">Ver</a></div>
+                <div class="col"> <form th:action="@{/verLinea}" method="post" th:object="${cliente}">
+                
+                							<input type="hidden"  th:value="*{NNombre}" id="NNombre" name="NNombre">
+	                                        <input type="hidden"  th:value="*{NApellido}" id="NApellido" name="NApellido">
+	                                        <input type="hidden"  th:value="*{CCliente}" id="CCliente" name="CCliente">
+	                                        <input type="hidden"  th:value="*{numDNI}" id="numDNI" name="numDNI">
+	                                        <input type="hidden"  th:value="*{numTelefono}" id="numTelefono" name="numTelefono">
+	                                        <input type="hidden"  th:value="*{BEstado}" id="BEstado" name="BEstado">
+	                                        <input type="hidden"  th:value="*{Linea.CLinea}" id="Linea.CLinea" name="Linea.CLinea">	
+	                                        
+                	<input class="btn btn-primary" role="button" style="padding-left: 16px;padding-right: 16px;margin-left: 0px;height: 36px;" type="submit" value="Ver">
+                
+                
+                
+                	</form>
+                </div>
                 <div class="col-auto">
                     <div class="row">
                         <div class="col d-xl-flex"><a class="btn btn-primary btn-sm d-lg-inline-block" role="button" href="#"><i class="fas fa-download fa-sm text-white-50"></i>&nbsp;Generar reporte</a></div>
@@ -117,15 +132,15 @@
                                         <form>
                                             <div class="form-row">
                                                 <div class="col">
-                                                    <div class="form-group"><label for="username"><strong>Línea de crédito</strong><br></label><input class="form-control" type="text" placeholder="123456" disabled=""></div>
+                                                    <div class="form-group"><label for="username"><strong>Línea de crédito</strong><br></label><input class="form-control" type="text" th:value="${cliente.Linea.CLinea}" disabled="" ></div>
                                                 </div>
                                             </div>
                                             <div class="form-row">
                                                 <div class="col">
-                                                    <div class="form-group"><label for="first_name"><strong>Fecha de cierre</strong></label><input class="form-control" type="date" disabled=""></div>
+                                                    <div class="form-group"><label for="first_name"><strong>Fecha de cierre</strong></label><input class="form-control" type="date" th:value="${lineadecliente.DFechaCierre}" disabled=""></div>
                                                 </div>
                                                 <div class="col">
-                                                    <div class="form-group"><label for="last_name"><strong>Último día de pago</strong></label><input class="form-control" type="date" disabled=""></div>
+                                                    <div class="form-group"><label for="last_name"><strong>Último día de pago</strong></label><input class="form-control" type="date" th:value="${lineadecliente.DUltimoDiaDePago}" disabled=""></div>
                                                 </div>
                                             </div>
                                         </form>
@@ -142,22 +157,30 @@
                         <p class="text-primary m-0 font-weight-bold">Transacciones realizadas</p>
                     </div>
                     <div class="card-body">
-                        <div class="row d-xl-flex">
-                            <div class="col-6 col-sm-8 col-lg-4 col-xl-5 text-nowrap">
-                                <div id="dataTable_length" class="dataTables_length" aria-controls="dataTable"><label>Mostrar&nbsp;<select class="custom-select form-control form-control-sm custom-select custom-select-sm"><option value="10" selected="">10</option><option value="25">25</option><option value="50">50</option><option value="100">100</option></select>&nbsp;</label></div>
-                            </div>
-                            <div class="col-sm-8 col-md-auto col-lg-4 col-xl-4 text-nowrap d-flex d-lg-flex d-xl-flex align-items-start justify-content-lg-end align-items-xl-start">
-                                <div class="text-md-right dataTables_filter" id="dataTable_filter" style="width: 0px;height: 30px;"><label></label></div><label class="text-nowrap d-xl-flex align-items-xl-center" style="height: 31px;">Desde&nbsp;</label><input class="border rounded" type="date" style="height: 31px;font-size: 14px;color: rgb(110,112,126);">
-                                <div
-                                    class="btn-group" role="group"></div>
-                        </div>
-                        <div class="col-sm-8 col-lg-4 col-xl-auto text-nowrap">
-                            <div class="btn-group" role="group"></div><label>&nbsp;hasta&nbsp;</label><input class="border rounded" type="date" style="font-size: 14px;color: rgb(110,112,126);height: 31px;"></div>
-                        <div class="col-lg-12 col-xl-1 d-sm-flex align-items-sm-end justify-content-lg-end justify-content-xl-start align-items-xl-start">
-                            <div class="text-md-right d-xl-flex justify-content-xl-end dataTables_filter" id="dataTable_filter"><button class="btn btn-primary" type="button" style="padding-left: 16px;padding-right: 16px;margin-left: 0px;height: 36px;">Ver</button><label></label></div>
-                            <div class="btn-group" role="group"></div>
-                        </div>
-                    </div>
+                    
+<!--                     <form th:action="@{/clienteseleccionado}" method="post"> -->
+                    
+                    
+<!--                         <div class="row d-xl-flex"> -->
+<!--                             <div class="col-6 col-sm-8 col-lg-4 col-xl-5 text-nowrap"> -->
+                               
+<!--                             </div> -->
+<!--                             <div class="col-sm-8 col-md-auto col-lg-4 col-xl-4 text-nowrap d-flex d-lg-flex d-xl-flex align-items-start justify-content-lg-end align-items-xl-start"> -->
+<!-- <!--                                 <div class="text-md-right dataTables_filter" id="dataTable_filter" style="width: 0px;height: 30px;"><label></label></div><label class="text-nowrap d-xl-flex align-items-xl-center" style="height: 31px;">Desde&nbsp;</label><input class="border rounded" type="date" style="height: 31px;font-size: 14px;color: rgb(110,112,126);">  -->
+<!--                                 <div -->
+<!--                                     class="btn-group" role="group"></div> -->
+<!--                         </div> -->
+<!--                         <div class="col-sm-8 col-lg-4 col-xl-auto text-nowrap"> -->
+<!--                             <div class="btn-group" role="group"></div><label>&nbsp;Fecha hasta que está siendo calculado&nbsp;</label><input class="form-control" style="font-size: 14px;color: rgb(110,112,126);height: 31px;"  type="date" th:value="${fechacalculada}"  disabled=""> -->
+<!--                             </div> -->
+<!--                         <div class="col-lg-12 col-xl-1 d-sm-flex align-items-sm-end justify-content-lg-end justify-content-xl-start align-items-xl-start"> -->
+<!--                             <div class="text-md-right d-xl-flex justify-content-xl-end dataTables_filter" id="dataTable_filter"><input class="btn btn-primary" style="padding-left: 16px;padding-right: 16px;margin-left: 0px;height: 36px;" type="submit" value="Ver"><label></label></div> -->
+<!--                             <div class="btn-group" role="group"></div> -->
+<!--                         </div> -->
+<!--                     </div> -->
+                    
+<!--                      </form> -->
+                    
                     <div class="table-responsive table mt-2" id="dataTable" role="grid" aria-describedby="dataTable_info">
                         <table class="table dataTable my-0" id="dataTable">
                             <thead>
@@ -171,105 +194,20 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td>1</td>
-                                    <td>Pago de deuda</td>
-                                    <td class="text-center">52.00</td>
-                                    <td class="text-center">SOLES</td>
-                                    <td class="text-center">20/10/2020</td>
-                                    <td class="text-center">Pago</td>
+                                <tr th:each="transacciondecliente : ${listadoTransaccionesDeCliente}">
+                                    <td  th:text="${transacciondecliente.CTransaccion}">1</td>
+                                    <td th:text="${transacciondecliente.TDescripcion}">Pago de deuda</td>
+                                    <td class="text-center" th:text="${transacciondecliente.Monto}">52.00</td>
+                                    <td class="text-center" th:text="${transacciondecliente.linea.TipoMoneda.NTipoMoneda}">SOLES</td>
+                                    <td class="text-center" th:text="${#dates.format(transacciondecliente.DFecha, 'dd/MM/yyyy')}">20/10/2020</td>
+                  					<td class="text-center" th:if="${transacciondecliente.BTipo} == true">Deuda</td>
+                                	<td class="text-center" th:if="${transacciondecliente.BTipo} == false">Pago</td>
                                 </tr>
-                                <tr>
-                                    <td>2</td>
-                                    <td>Compra de perfume para hombre</td>
-                                    <td class="text-center">100.00</td>
-                                    <td class="text-center">SOLES</td>
-                                    <td class="text-center">20/11/2020<br></td>
-                                    <td class="text-center">Deuda</td>
-                                </tr>
-                                <tr>
-                                    <td>3</td>
-                                    <td>Compra de kit de corte de cabello</td>
-                                    <td class="text-center">250.00</td>
-                                    <td class="text-center">SOLES</td>
-                                    <td class="text-center">22/12/2020<br></td>
-                                    <td class="text-center">Deuda</td>
-                                </tr>
-                                <tr>
-                                    <td>4</td>
-                                    <td>Compra de kit de corte de cabello<br></td>
-                                    <td class="text-center">250.00<br></td>
-                                    <td class="text-center">SOLES</td>
-                                    <td class="text-center">23/12/2020<br></td>
-                                    <td class="text-center">Deuda</td>
-                                </tr>
-                                <tr>
-                                    <td>5</td>
-                                    <td>Compra de kit de corte de cabello<br></td>
-                                    <td class="text-center">250.00<br></td>
-                                    <td class="text-center">SOLES<br></td>
-                                    <td class="text-center">24/12/2020<br></td>
-                                    <td class="text-center">Deuda</td>
-                                </tr>
-                                <tr>
-                                    <td>6</td>
-                                    <td>Compra de kit de corte de cabello<br></td>
-                                    <td class="text-center">250.00<br></td>
-                                    <td class="text-center">SOLES</td>
-                                    <td class="text-center">25/12/2020<br></td>
-                                    <td class="text-center">Deuda</td>
-                                </tr>
-                                <tr>
-                                    <td>7</td>
-                                    <td>Compra de kit de corte de cabello<br></td>
-                                    <td class="text-center">250.00<br></td>
-                                    <td class="text-center">SOLES</td>
-                                    <td class="text-center">26/12/2020<br></td>
-                                    <td class="text-center">Deuda</td>
-                                </tr>
-                                <tr>
-                                    <td>8</td>
-                                    <td>Compra de kit de corte de cabello<br></td>
-                                    <td class="text-center">250.00<br></td>
-                                    <td class="text-center">SOLES</td>
-                                    <td class="text-center">27/22/2020<br></td>
-                                    <td class="text-center">Deuda</td>
-                                </tr>
-                                <tr>
-                                    <td>9</td>
-                                    <td>Compra de kit de corte de cabello<br></td>
-                                    <td class="text-center">250.00<br></td>
-                                    <td class="text-center">SOLES</td>
-                                    <td class="text-center">28/22/2020<br></td>
-                                    <td class="text-center">Deuda</td>
-                                </tr>
-                                <tr>
-                                    <td>10</td>
-                                    <td>Compra de kit de corte de cabello<br></td>
-                                    <td class="text-center">250.00<br></td>
-                                    <td class="text-center">SOLES</td>
-                                    <td class="text-center">29/22/2020<br></td>
-                                    <td class="text-center">Deuda</td>
-                                </tr>
+                                
                             </tbody>
                         </table>
                     </div>
-                    <div class="row">
-                        <div class="col-md-6 align-self-center">
-                            <p id="dataTable_info" class="dataTables_info" role="status" aria-live="polite">Mostrando desde 1 hasta 10 de 27</p>
-                        </div>
-                        <div class="col-md-6">
-                            <nav class="d-lg-flex justify-content-lg-end dataTables_paginate paging_simple_numbers">
-                                <ul class="pagination">
-                                    <li class="page-item disabled"><a class="page-link" href="#" aria-label="Previous"><span aria-hidden="true">«</span></a></li>
-                                    <li class="page-item active"><a class="page-link" href="#">1</a></li>
-                                    <li class="page-item"><a class="page-link" href="#">2</a></li>
-                                    <li class="page-item"><a class="page-link" href="#">3</a></li>
-                                    <li class="page-item"><a class="page-link" href="#" aria-label="Next"><span aria-hidden="true">»</span></a></li>
-                                </ul>
-                            </nav>
-                        </div>
-                    </div>
+                   
                 </div>
             </div>
         </div>
@@ -319,18 +257,18 @@
                                     <form >
                                         <div class="form-row">
                                             <div class="col">
-                                                <div class="form-group"><label for="username"><strong>Totales</strong><br></label><input class="form-control" type="text" placeholder="123456" disabled="" th:value="${resultadosistema.DeudaTotalSinIntereses}"></div>
+                                                <div class="form-group"><label for="username"><strong>Totales</strong><br></label><input class="form-control" type="text" placeholder="123456" disabled="" th:value="${#numbers.formatDecimal(resultadosistema.DeudaTotalSinIntereses, 1, 2, 'POINT')}"></div>
                                             </div>
                                             <div class="col">
-                                                <div class="form-group"><label for="username"><strong>Intereses generados</strong><br></label><input class="form-control" type="text" placeholder="123456" disabled="" th:value="${resultadosistema.InteresesGenerados}"></div>
+                                                <div class="form-group"><label for="username"><strong>Intereses generados</strong><br></label><input class="form-control" type="text" placeholder="123456" disabled="" th:value="${#numbers.formatDecimal(resultadosistema.InteresesGenerados,1,2, 'POINT')}"></div>
                                             </div>
                                         </div>
                                         <div class="form-row">
                                             <div class="col">
-                                                <div class="form-group"><label for="first_name"><strong>Crédito disponible</strong></label><input class="form-control" type="text" placeholder="123456" disabled="" th:value="${resultadosistema.CreditoDisponible}"></div>
+                                                <div class="form-group"><label for="first_name"><strong>Crédito disponible</strong></label><input class="form-control" type="text" placeholder="123456" disabled="" th:value="${#numbers.formatDecimal(resultadosistema.CreditoDisponible, 1, 2, 'POINT')}"></div>
                                             </div>
                                             <div class="col">
-                                                <div class="form-group"><label for="last_name"><strong>Deuda total</strong></label><input class="form-control" type="text" placeholder="123456" disabled="" th:value="${resultadosistema.DeudaTotal}"></div>
+                                                <div class="form-group"><label for="last_name"><strong>Deuda total</strong></label><input class="form-control" type="text" placeholder="123456" disabled="" th:value="${#numbers.formatDecimal(resultadosistema.DeudaTotal, 1,2,'POINT')}"></div>
                                             </div>
                                         </div>
                                     </form>
@@ -343,7 +281,7 @@
             <div class="card shadow mb-5"></div>
         </div>
         <div class="container my-auto">
-            <div class="text-center my-auto copyright"><span>Copyright © Brand 2020</span></div>
+            <div class="text-center my-auto copyright"><span>Copyright © EMYS 2020</span></div>
         </div>
     </footer>
     </div><a class="border rounded d-inline scroll-to-top" href="#page-top"><i class="fas fa-angle-up"></i></a></div>

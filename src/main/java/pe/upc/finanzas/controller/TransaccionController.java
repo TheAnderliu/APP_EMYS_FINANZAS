@@ -45,7 +45,7 @@ public class TransaccionController {
 		model.addAttribute("HastaFecha", new Date());
 		
 		if (result.hasErrors()) {
-			model.addAttribute("mensaje", "Error al inicio de la funcion");
+			model.addAttribute("mensaje", "Error al ingresar datos");
 			return "registrartransaccion";
 			
 		} else {
@@ -58,8 +58,20 @@ public class TransaccionController {
 				return "registrartransaccion";
 				
 			} else {
-				model.addAttribute("mensaje", "¡Transacción registrada!");
-				status.setComplete();
+				
+				
+					if (rpta==-1) {
+						model.addAttribute("mensaje", "No se pudo registrar porque sobrepasa el límite de la cuenta en la fecha actual o porque la fecha está durante el periodo de pago");
+					
+					} else if(rpta==0){
+						
+						model.addAttribute("mensaje", "¡Transacción registrada!");
+						status.setComplete();
+						
+					}
+				
+				
+				
 			}
 			
 			
@@ -92,28 +104,8 @@ public class TransaccionController {
 			
 		} else {
 			
-//			SimpleDateFormat formatofecha = new SimpleDateFormat("yy-MM-dd");
-//			
-//			Date DesdeFechaCasteado = null;
-//			try {
-//				
-//				DesdeFechaCasteado = formatofecha.parse(DesdeFecha);
-//			} catch (ParseException e) {
-//				// TODO Auto-generated catch block
-//				e.printStackTrace();
-//			}
-//			
-//			Date HastaFechaCasteado = null;
-//			try {
-//				HastaFechaCasteado = formatofecha.parse(HastaFecha);
-//			} catch (ParseException e) {
-//				// TODO Auto-generated catch block
-//				e.printStackTrace();
-//			}
+
 			
-			System.out.println("Fecha Desde: "+ DesdeFecha.toString());
-			
-			System.out.println("Fecha Hasta: "+ HastaFecha.toString());
 			
 			
 			model.addAttribute("listadoTransacciones", transaccionService.encontrartransaccionentrefechas(DesdeFecha, HastaFecha));

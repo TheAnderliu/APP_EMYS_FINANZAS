@@ -15,4 +15,8 @@ public interface ITipoDeliveryRepository extends JpaRepository<TipoDelivery, Lon
 	
 	@Query("select e from TipoDelivery e where e.CTipoDelivery = :CTipoDelivery")
 	public TipoDelivery findByCTipoDelivery(@Param("CTipoDelivery")Long CTipoDelivery);
+	
+	
+	@Query("select e from TipoDelivery e where e.CTipoDelivery = 1")
+	public TipoDelivery encontrarTipoDeñiveryGratis();
 }

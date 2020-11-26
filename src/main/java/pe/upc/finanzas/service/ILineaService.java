@@ -21,5 +21,9 @@ public interface ILineaService{
 	
 	List<Linea> findByDFechaEmision(Date DFechaEmision);
 	
-	public Sistema Resultados(Cliente cliente);
+	public Sistema Resultados(Cliente cliente, Date FechaHasta);
+	
+	public Linea encontrarLineaDeCliente(Cliente cliente);
+	
+	public void cancelarDeuda (Linea lineaencontrada);
 }

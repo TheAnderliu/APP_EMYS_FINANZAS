@@ -62,8 +62,25 @@ public class Linea implements Serializable {
 	@Column(name="NumAnio", nullable=false)
 	private int NumAnio;
 	
+	@Temporal(TemporalType.DATE)	
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
+	@Column(name="DFechaCierre")
+	private Date DFechaCierre;
 	
-/*	@OneToOne(mappedBy = "Linea")
+	
+	@Temporal(TemporalType.DATE)	
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
+	@Column(name="DUltimoDiaDePago")
+	private Date DUltimoDiaDePago;
+	
+	
+	@Column(name="DeudaTotal")
+	private float DeudaTotal;
+	
+
+
+
+	/*	@OneToOne(mappedBy = "Linea")
     private Cliente Cliente;
 */	
 	@OneToOne(cascade = CascadeType.ALL)
@@ -245,6 +262,39 @@ public class Linea implements Serializable {
 	}
 
 
+
+	public Date getDFechaCierre() {
+		return DFechaCierre;
+	}
+
+
+
+	public void setDFechaCierre(Date dFechaCierre) {
+		DFechaCierre = dFechaCierre;
+	}
+
+
+
+	public Date getDUltimoDiaDePago() {
+		return DUltimoDiaDePago;
+	}
+
+
+
+	public void setDUltimoDiaDePago(Date dUltimoDiaDePago) {
+		DUltimoDiaDePago = dUltimoDiaDePago;
+	}
+
+	
+	public float getDeudaTotal() {
+		return DeudaTotal;
+	}
+
+
+
+	public void setDeudaTotal(float deudaTotal) {
+		DeudaTotal = deudaTotal;
+	}
 
 	
 	

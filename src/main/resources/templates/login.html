@@ -29,11 +29,16 @@
                                     <div class="text-center">
                                         <h4 class="text-dark mb-4">¡Bienvenido al sistema de línea de crédito de EMYS!</h4>
                                     </div>
-                                    <form class="user">
-                                        <div class="form-group"><input class="form-control form-control-user" type="email" id="exampleInputEmail" aria-describedby="emailHelp" placeholder="Correo electrónico" name="email" inputmode="email" style="margin-top: 66px;font-size: 17px;"></div>
+                                    
+                                    <form class="user" th:action="@{/validarAdministrador}" method="post" th:object="${administrador}">
+                                        <div class="form-group"><input class="form-control form-control-user" type="email" id="exampleInputEmail" aria-describedby="emailHelp" placeholder="Correo electrónico" name="email" inputmode="email" style="margin-top: 66px;font-size: 17px;" th:field="*{NCorreo}"></div>
                                         <div
-                                            class="form-group"><input class="form-control form-control-user" type="password" id="exampleInputPassword" placeholder="Contraseña" name="password" style="margin-top: 31px;font-size: 17px;"></div><button class="btn btn-primary btn-block text-white btn-user"
-                                    type="submit" style="margin-top: 67px;padding-top: 17px;padding-bottom: 17px;font-size: 20px;font-weight: bold;font-style: normal;">Entrar</button></form>
+                                            class="form-group"><input class="form-control form-control-user" type="password" id="exampleInputPassword" placeholder="Contraseña" name="password" style="margin-top: 31px;font-size: 17px;"  th:field="*{NContrasenia}"></div>
+                                             <p th:text="${mensaje}" class="form-text text-danger"></p>
+                                            <input class="btn btn-primary btn-block text-white btn-user"
+                                    type="submit" style="margin-top: 67px;padding-top: 17px;padding-bottom: 17px;font-size: 20px;font-weight: bold;font-style: normal;" value="Entrar">
+                                    </form>
+                                    
                             </div>
                         </div>
                     </div>

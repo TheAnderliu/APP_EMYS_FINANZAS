@@ -24,8 +24,12 @@ public interface ITransaccionService{
 
 	List<Transaccion> findByBTipo(boolean BTipo);
 	
-	List<Transaccion> encontrarporLinea(Long CLinea);
+	List<Transaccion> encontrarporLinea(Linea Linea);
 	
 	List<Transaccion> encontrartransaccionentrefechas(Date DesdeFecha, Date HastaFecha);
+	
+	List<Transaccion> encontrarporLineaMenorAFecha(Linea lineaencontrada, Date HastaFecha);
+	
+	public void insertarMantenimiento(Date FechaActual);
 	
 }

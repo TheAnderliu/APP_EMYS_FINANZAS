@@ -52,7 +52,7 @@
                             </li>
                             <div class="d-none d-sm-block topbar-divider"></div>
                             <li class="nav-item dropdown no-arrow" role="presentation">
-                                <div class="nav-item dropdown no-arrow"><a class="dropdown-toggle nav-link" data-toggle="dropdown" aria-expanded="false" href="#"><span class="d-none d-lg-inline mr-2 text-gray-600 small">Valerie Luna</span><i class="fa fa-user-circle" style="font-size: 26px;"></i></a>
+                                <div class="nav-item dropdown no-arrow"><a class="dropdown-toggle nav-link" data-toggle="dropdown" aria-expanded="false" href="#"><span class="d-none d-lg-inline mr-2 text-gray-600 small">Admin Emys</span><i class="fa fa-user-circle" style="font-size: 26px;"></i></a>
                                     <div
                                         class="dropdown-menu shadow dropdown-menu-right animated--grow-in" role="menu"><a class="dropdown-item" role="presentation" href="#"><i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>&nbsp;Cerrar sesión</a></div>
                     </div>
@@ -62,12 +62,13 @@
             </nav>
             <div class="container-fluid">
                 <div class="d-sm-flex justify-content-between align-items-center mb-4">
-                    <h3 class="text-dark mb-0">Clientes</h3><a class="btn btn-primary btn-sm d-none d-sm-inline-block" role="button" href="#"><i class="fas fa-download fa-sm text-white-50"></i>&nbsp;Generar reporte</a></div>
+                    <h3 class="text-dark mb-0">Clientes</h3></div>
             </div>
             <div class="container-fluid">
                 <div class="card shadow">
                     <div class="card-header py-3">
                         <p class="text-primary m-0 font-weight-bold">Lista de clientes</p>
+                        
                     </div>
                     <div class="card-body">
                        
@@ -106,6 +107,9 @@
                                         <input type="hidden"  th:value="*{numDNI}" id="numDNI" name="numDNI">
                                         <input type="hidden"  th:value="*{numTelefono}" id="numTelefono" name="numTelefono">
                                         <input type="hidden"  th:value="*{BEstado}" id="BEstado" name="BEstado">
+                                        <input type="hidden"  th:value="*{Linea.CLinea}" id="Linea.CLinea" name="Linea.CLinea">
+                                        <input type="hidden"  th:field="${HastaFecha}"  name="HastaFecha">
+                                        <label>&nbsp;Hasta&nbsp;</label><input class="border rounded" type="date" style="font-size: 14px;color: rgb(110,112,126);height: 31px;" pattern="yy-MM-dd"  name="HastaFecha">
                                         <input class="btn btn-primary" role="button" style="height: 33px;padding-bottom: 4px;padding-top: 4px;width: 64px;" type="submit" value="Ver"></input> </form></td>
                                    
                                     </tr>

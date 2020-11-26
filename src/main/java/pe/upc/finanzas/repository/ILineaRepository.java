@@ -33,8 +33,8 @@ public interface ILineaRepository extends JpaRepository<Linea, Long>{
 	public int CantidadDeTransaccionesPorLinea(@Param("Linea")Linea Linea);
 	
 	
-	@Query("select e from Transaccion e where e.linea =:Linea order by e.DFecha ASC")
-	List<Transaccion> ListaDeTransaccionees(@Param("Linea")Linea Linea); 
+	@Query("select e from Transaccion e where e.linea =:Linea and e.DFecha <=:FechaHasta  order by e.DFecha ASC")
+	List<Transaccion> ListaDeTransaccionees(@Param("Linea")Linea Linea, @Param("FechaHasta") Date FechaHasta); 
 	
 	
 	@Query(value = "select datediff(:FechaMayor, :FechaMenor)", nativeQuery = true)

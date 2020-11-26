@@ -19,5 +19,6 @@ public interface IAdministradorService{
 	
 	public Administrador findByNAdministrador(String NAdministrador);
 	
+	public int validarAdministrador(Administrador administrador);
 	
 }

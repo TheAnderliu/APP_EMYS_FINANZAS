@@ -52,7 +52,7 @@
                             </li>
                             <div class="d-none d-sm-block topbar-divider"></div>
                             <li class="nav-item dropdown no-arrow" role="presentation">
-                                <div class="nav-item dropdown no-arrow"><a class="dropdown-toggle nav-link" data-toggle="dropdown" aria-expanded="false" href="#"><span class="d-none d-lg-inline mr-2 text-gray-600 small">Valerie Luna</span><i class="fa fa-user-circle" style="font-size: 26px;"></i></a>
+                                <div class="nav-item dropdown no-arrow"><a class="dropdown-toggle nav-link" data-toggle="dropdown" aria-expanded="false" href="#"><span class="d-none d-lg-inline mr-2 text-gray-600 small">Admin Emys</span><i class="fa fa-user-circle" style="font-size: 26px;"></i></a>
                                     <div
                                         class="dropdown-menu shadow dropdown-menu-right animated--grow-in" role="menu"><a class="dropdown-item" role="presentation" href="#"><i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>&nbsp;Cerrar sesión</a></div>
                     </div>
@@ -85,7 +85,7 @@
 									class="form-text text-danger"
 									th:if="${#fields.hasErrors('linea')}" th:errors="*{linea}"></small></div>
                 <div
-                    class="col"> <a class="btn btn-primary" role="button" style="padding-left: 16px;padding-right: 16px;margin-left: 0px;height: 36px;margin-top: 10px;" href="lineadecredito.html">Ver linea</a></div>
+                    class="col"> </div>
         </div>
                 
                     <!-- <div class="row mb-3 d-none">
@@ -131,7 +131,7 @@
                                                 <div class="form-group"><label for="first_name"><strong>Línea de crédito</strong></label><input class="form-control" type="text" placeholder="123456"></div>
                                             </div> -->
                                             <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12">
-                                                <div class="form-group"><label for="last_name"><strong>Tipo</strong></label><select class="custom-select" name="BTipo" th:field="*{BTipo}"><option value="0">Pago</option><option value="1">Deuda</option></select> <small
+                                                <div class="form-group"><label for="last_name"><strong>Tipo</strong></label><select class="custom-select" name="BTipo" th:field="*{BTipo}"><option value="1" selected="true">Deuda</option><option value="0">Pago</option></select> <small
 									class="form-text text-danger"
 									th:if="${#fields.hasErrors('BTipo')}" th:errors="*{BTipo}"></small></div>
                                             </div>

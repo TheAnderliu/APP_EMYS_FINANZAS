@@ -52,7 +52,7 @@
                             </li>
                             <div class="d-none d-sm-block topbar-divider"></div>
                             <li class="nav-item dropdown no-arrow" role="presentation">
-                                <div class="nav-item dropdown no-arrow"><a class="dropdown-toggle nav-link" data-toggle="dropdown" aria-expanded="false" href="#"><span class="d-none d-lg-inline mr-2 text-gray-600 small">Valerie Luna</span><i class="fa fa-user-circle" style="font-size: 26px;"></i></a>
+                                <div class="nav-item dropdown no-arrow"><a class="dropdown-toggle nav-link" data-toggle="dropdown" aria-expanded="false" href="#"><span class="d-none d-lg-inline mr-2 text-gray-600 small">Admin Emys</span><i class="fa fa-user-circle" style="font-size: 26px;"></i></a>
                                     <div
                                         class="dropdown-menu shadow dropdown-menu-right animated--grow-in" role="menu"><a class="dropdown-item" role="presentation" href="#"><i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>&nbsp;Cerrar sesión</a></div>
                     </div>
@@ -98,7 +98,7 @@
                             <div class="col">
                                 <div class="card shadow mb-3">
                                     <div class="card-header py-3" style="padding: 16px;height: 57.8px;">
-                                        <p class="text-primary d-xl-flex m-0 font-weight-bold" style="margin-top: 0px;padding-top: 0px;margin-left: 0px;">Datos personales del cliente<a class="btn btn-primary btn-sm" role="button" style="margin-left: 20px;margin-top: 0px;padding: 0px;padding-top: 0px;padding-bottom: 0px;padding-right: 23px;padding-left: 23px;" href="editarcliente.html">Editar</a></p>
+                                        <p class="text-primary d-xl-flex m-0 font-weight-bold" style="margin-top: 0px;padding-top: 0px;margin-left: 0px;">Datos personales del cliente</p>
                                         <div
                                             class="btn-group" role="group"></div>
                                 </div>
@@ -106,18 +106,18 @@
                                     <form>
                                         <div class="form-row">
                                             <div class="col-sm-12 col-md-6 col-lg-6 col-xl-6">
-                                                <div class="form-group"><label for="username"><strong>Nombres</strong></label><input class="form-control" type="text" name="nombres"></div>
+                                                <div class="form-group"><label for="username"><strong>Nombres</strong></label><input class="form-control" type="text" name="nombres" readonly="" th:value="${linea.Cliente.NNombre}"></div>
                                             </div>
                                             <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6">
-                                                <div class="form-group"><label for="email"><strong>Apellidos</strong></label><input class="form-control" type="email" name="apellidos"></div>
+                                                <div class="form-group"><label for="email"><strong>Apellidos</strong></label><input class="form-control" type="email" name="apellidos" readonly="" th:value="${linea.Cliente.NApellido}"></div>
                                             </div>
                                         </div>
                                         <div class="form-row">
                                             <div class="col-sm-12 col-md-6 col-lg-6 col-xl-6">
-                                                <div class="form-group"><label for="first_name"><strong>Telefono</strong></label><input class="form-control" type="text" name="telefono"></div>
+                                                <div class="form-group"><label for="first_name"><strong>Telefono</strong></label><input class="form-control" type="text" name="telefono" readonly="" th:value="${linea.Cliente.numTelefono}"></div>
                                             </div>
                                             <div class="col-sm-12 col-md-6 col-lg-6 col-xl-6">
-                                                <div class="form-group"><label for="last_name"><strong>DNI</strong></label><input class="form-control" type="text" name="DNI"></div>
+                                                <div class="form-group"><label for="last_name"><strong>DNI</strong></label><input class="form-control" type="text" name="DNI" readonly="" th:value="${linea.Cliente.numDNI}"></div>
                                             </div>
                                         </div>
                                     </form>
@@ -125,52 +125,52 @@
                             </div>
                             <div class="card shadow">
                                 <div class="card-header py-3">
-                                    <p class="text-primary m-0 font-weight-bold">Datos de la línea de crédito<a class="btn btn-primary btn-sm" role="button" style="margin-left: 20px;margin-top: 0px;padding: 0px;padding-top: 0px;padding-bottom: 0px;padding-right: 23px;padding-left: 23px;" href="editarlineadecredito.html">Editar</a></p>
+                                    <p class="text-primary m-0 font-weight-bold">Datos de la línea de crédito</p>
                                 </div>
                                 <div class="card-body">
                                     <form>
                                         <div class="form-row">
                                             <div class="col-sm-12 col-md-6 col-lg-6 col-xl-6">
-                                                <div class="form-group"><label for="country"><strong>Línea de crédito</strong></label><input class="form-control" type="text" placeholder="123154687" name="lineadecredito" readonly=""></div>
+                                                <div class="form-group"><label for="country"><strong>Línea de crédito</strong></label><input class="form-control" type="text" placeholder="123154687" name="lineadecredito" readonly="" th:value="${linea.CLinea}"></div>
                                             </div>
                                             <div class="col-sm-12 col-md-6 col-lg-6 col-xl-6">
-                                                <div class="form-group"><label for="fechadeemision"><strong>Fecha de emisión</strong></label><input class="form-control" type="date"></div>
-                                            </div>
-                                        </div>
-                                        <div class="form-row">
-                                            <div class="col-sm-12 col-md-6 col-lg-6 col-xl-6">
-                                                <div class="form-group"><label for="city"><strong>Tipo de moneda</strong></label><select class="custom-select"><option value="12" selected="">This is item 1</option><option value="13">This is item 2</option><option value="14">This is item 3</option></select></div>
-                                            </div>
-                                            <div class="col-sm-12 col-md-6 col-lg-6 col-xl-6">
-                                                <div class="form-group"><label for="country"><strong>Crédito</strong></label><input class="form-control" type="text" placeholder="USA" name="credito"></div>
+                                                <div class="form-group"><label for="fechadeemision"><strong>Fecha de emisión</strong></label><input class="form-control" readonly="" type="date" th:value="${linea.DFechaEmision}"></div>
                                             </div>
                                         </div>
                                         <div class="form-row">
                                             <div class="col-sm-12 col-md-6 col-lg-6 col-xl-6">
-                                                <div class="form-group"><label for="city"><strong>Tipo de Tasa de interés</strong></label><select class="custom-select"><option value="12" selected="">This is item 1</option><option value="13">This is item 2</option><option value="14">This is item 3</option></select></div>
+                                                <div class="form-group"><label for="city"><strong>Tipo de moneda</strong></label><input class="form-control" type="text" readonly="" th:value="${linea.TipoMoneda.NTipoMoneda}"></div>
                                             </div>
                                             <div class="col-sm-12 col-md-6 col-lg-6 col-xl-6">
-                                                <div class="form-group"><label for="country"><strong>Tasa de interés (%)</strong></label><input class="form-control" type="text" placeholder="USA" name="credito"></div>
-                                            </div>
-                                        </div>
-                                        <div class="form-row">
-                                            <div class="col-sm-12 col-md-6 col-lg-6 col-xl-6">
-                                                <div class="form-group"><label for="city"><strong>Capitalización (en días)</strong></label><input class="form-control" type="text" placeholder="10" name="credito"></div>
-                                            </div>
-                                            <div class="col-sm-12 col-md-6 col-lg-6 col-xl-6">
-                                                <div class="form-group"><label for="country"><strong>Perido de la Tasa</strong></label><select class="custom-select"><option value="12" selected="">This is item 1</option><option value="13">This is item 2</option><option value="14">This is item 3</option></select></div>
+                                                <div class="form-group"><label for="country"><strong>Crédito</strong></label><input class="form-control" type="text" readonly="" placeholder="USA" name="credito" th:value="${linea.NumCredito}"></div>
                                             </div>
                                         </div>
                                         <div class="form-row">
                                             <div class="col-sm-12 col-md-6 col-lg-6 col-xl-6">
-                                                <div class="form-group"><label for="anio"><strong>Año (en días)</strong></label><input class="form-control" type="text" placeholder="360" name="anio" disabled=""></div>
+                                                <div class="form-group"><label for="city"><strong>Tipo de Tasa de interés</strong></label><input class="form-control" type="text" placeholder="USA" readonly="" name="credito" th:value="${linea.TipoTasa.NTipoTasa}"></div>
+                                            </div>
+                                            <div class="col-sm-12 col-md-6 col-lg-6 col-xl-6">
+                                                <div class="form-group"><label for="country"><strong>Tasa de interés (%)</strong></label><input class="form-control" type="text" placeholder="USA" name="credito" readonly="" th:value="${linea.NTasa}"></div>
+                                            </div>
+                                        </div>
+                                        <div class="form-row">
+                                            <div class="col-sm-12 col-md-6 col-lg-6 col-xl-6">
+                                                <div class="form-group"><label for="city"><strong>Capitalización (en días)</strong></label><input class="form-control" type="text" placeholder="10" name="credito" readonly="" th:value="${linea.NCapitalizacion}"></div>
+                                            </div>
+                                            <div class="col-sm-12 col-md-6 col-lg-6 col-xl-6">
+                                                <div class="form-group"><label for="country"><strong>Periodo de la Tasa</strong></label><input class="form-control" type="text" placeholder="10" name="credito" readonly="" th:value="${linea.PeriodoTasa.NPeriodoTasa}"></div>
+                                            </div>
+                                        </div>
+                                        <div class="form-row">
+                                            <div class="col-sm-12 col-md-6 col-lg-6 col-xl-6">
+                                                <div class="form-group"><label for="anio"><strong>Año (en días)</strong></label><input class="form-control" type="text" placeholder="360" name="anio" readonly=""></div>
                                             </div>
                                             <div class="col-6 col-sm-12 col-md-6 col-lg-6 col-xl-6">
-                                                <div class="form-group"><label for="country"><strong>Cargo por mantenimiento de cuenta (2.50)</strong></label><select class="custom-select"><option value="12" selected="">Mensual</option><option value="13">This is item 2</option><option value="14">This is item 3</option></select></div>
+                                                <div class="form-group"><label for="country"><strong>Cargo por mantenimiento de cuenta (2.50)</strong></label><input class="form-control" type="text" readonly="" placeholder="10" name="credito" th:value="${linea.TipoMantenimiento.NTipoMantenimiento}"></div>
                                             </div>
                                         </div>
                                         <div class="form-group d-xl-flex justify-content-xl-start">
-                                            <div class="col" style="margin-top: 10px;padding-left: 0px;"><a class="btn btn-primary btn-lg" role="button" style="width: 155px;margin-right: 14px;margin-top: 10px;" href="clienteseleccionado.html">Atrás</a></div>
+                                            <div class="col" style="margin-top: 10px;padding-left: 0px;"><a class="btn btn-primary btn-lg" role="button" style="width: 155px;margin-right: 14px;margin-top: 10px;" th:href="@{/clientes}">Atrás</a></div>
                                         </div>
                                     </form>
                                 </div>

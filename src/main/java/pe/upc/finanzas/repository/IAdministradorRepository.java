@@ -21,4 +21,7 @@ public interface IAdministradorRepository extends JpaRepository<Administrador, L
 	@Query("select e from Administrador e where e.NAdministrador = :NAdministrador")
 	public Administrador findByNAdministrador(@Param("NAdministrador")String NAdministrador);
 	
+	@Query("select e from Administrador e where e.CAdministrador = 1")
+	public Administrador encontrarAdministradorUnico();
+	
 }

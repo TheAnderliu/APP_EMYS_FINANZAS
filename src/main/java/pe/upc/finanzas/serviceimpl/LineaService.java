@@ -2,7 +2,9 @@ package pe.upc.finanzas.serviceimpl;
 
 import java.io.Serializable;
 import java.time.temporal.ChronoUnit;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.List;
 import java.util.Optional;
 
@@ -19,6 +21,7 @@ import pe.upc.finanzas.entity.Transaccion;
 import pe.upc.finanzas.repository.IAdministradorRepository;
 import pe.upc.finanzas.repository.IClienteRepository;
 import pe.upc.finanzas.repository.ILineaRepository;
+import pe.upc.finanzas.repository.ITransaccionRepository;
 import pe.upc.finanzas.service.ILineaService;
 
 @Service
@@ -34,6 +37,9 @@ public class LineaService implements ILineaService, Serializable{
 	
 	@Autowired
 	private IClienteRepository clienteRepository;
+	
+	@Autowired
+	private ITransaccionRepository transaccionRepository;
 	
 	
 	
@@ -92,7 +98,7 @@ public class LineaService implements ILineaService, Serializable{
 
 
 	@Override
-	public Sistema Resultados(Cliente cliente) {
+	public Sistema Resultados(Cliente cliente, Date FechaHasta) {
 		
 		
 		//Iniciciamos la variable de Sistema
@@ -103,15 +109,15 @@ public class LineaService implements ILineaService, Serializable{
 		Linea LineaEncontradaDeCliente= lineaRepository.findByCliente(cliente);
 		
 		//Contamos cuántas transacciones totales tiene (para luego iterar)
-		int CantidadDeTransacciones =lineaRepository.CantidadDeTransaccionesPorLinea(LineaEncontradaDeCliente);
+		int CantidadDeTransacciones =lineaRepository.CantidadDeTransaccionesPorLinea(LineaEncontradaDeCliente); //ACA AÑADIRLE EL ATRIBUTO FECHAMAX
 		
 		
 		//Obtenemos los datos de la linea
-		int Limite = LineaEncontradaDeCliente.getNumCredito();
+		float Limite = LineaEncontradaDeCliente.getNumCredito();
 		String TipoTasa = (LineaEncontradaDeCliente.getTipoTasa()).getNTipoTasa();
 		double ValorTasa = LineaEncontradaDeCliente.getNTasa();
 		
-		int Capitalizacion = 0;
+		float Capitalizacion = 0;
 		
 		String PeriodoTasa = "";
 		
@@ -119,7 +125,7 @@ public class LineaService implements ILineaService, Serializable{
 		
 		Boolean TipoMonto ;
 		
-		int tiempo = 0;
+		float tiempo = 0;
 		
 		float mtotal = 0;
 		
@@ -196,7 +202,7 @@ public class LineaService implements ILineaService, Serializable{
 		Transaccion transacionactual = new Transaccion();
 		Transaccion transacionsiguiente = new Transaccion();
 		
-		List<Transaccion> ListadoTransacciones = lineaRepository.ListaDeTransaccionees(LineaEncontradaDeCliente); 
+		List<Transaccion> ListadoTransacciones = lineaRepository.ListaDeTransaccionees(LineaEncontradaDeCliente, FechaHasta); //ACA AÑADIRLE EL ATRIBUTO FECHAMAX
 		
 		//For iiterando por cada transaccion
 		for (int i = 0; i < ListadoTransacciones.size(); i++) {
@@ -211,15 +217,63 @@ public class LineaService implements ILineaService, Serializable{
 			
 			
 			
+			//Debido a que se calculan los resultados hasta 30 después de la primera tansaccion, se le resta 1 a la fecha de cierre
+			GregorianCalendar Dia30avoLuegoDeLaPrimeraTransaccion = new GregorianCalendar();
+			
+			Dia30avoLuegoDeLaPrimeraTransaccion.setTime(LineaEncontradaDeCliente.getDFechaCierre());
+			
+			Dia30avoLuegoDeLaPrimeraTransaccion.add(Calendar.DATE, -1);
 			
 			
-			//Obtener la diferencia de dias entre transaccion
+			
+			
+			
 			if (i+1<ListadoTransacciones.size()) {
+				//PARA LAS TRANSACCIONES ANTERIORES A LA ULTIMA
 				
 				transacionsiguiente=ListadoTransacciones.get(i+1);
-				tiempo = lineaRepository.DiferenciaEntreFecha(transacionsiguiente.getDFecha(), transacionactual.getDFecha());
+				//Validacion para el caso de que la siguiente transaccion a analizar sea menor que la fecha de cierre
+				if (transacionsiguiente.getDFecha().before(LineaEncontradaDeCliente.getDFechaCierre())) {
+				
+				//Si la siguiente fecha de la transaccion es menor que la Fecha de Cierre, entonces se procederá a hallar la diferenncia de días entre las dos
+					tiempo = lineaRepository.DiferenciaEntreFecha(transacionsiguiente.getDFecha(), transacionactual.getDFecha());
+					
+					
+					
+				} else {
+					
+					
+					
+					//Si la fecha de la siguiente transaccion es mayor que la Fecha de Cierre, entonces el tiempo de esta transaccion se igualará a cero, simulando que se realizó un día antes de la Fecha de Cierre 
+					tiempo = 0;
+				}
+				
+				
+				
+				
 			} else {
-				tiempo = 0;
+				
+				//PARA LA ULTIMA TRANSACCION
+				
+				
+				
+				if (FechaHasta.after(Dia30avoLuegoDeLaPrimeraTransaccion.getTime())) {
+					
+					
+					if (transacionactual.getDFecha().before(LineaEncontradaDeCliente.getDFechaCierre())) {
+						tiempo = lineaRepository.DiferenciaEntreFecha(Dia30avoLuegoDeLaPrimeraTransaccion.getTime(), transacionactual.getDFecha());
+					}else {
+						
+						tiempo = 0;
+					}
+					
+					
+				} else {
+					//El tiempo para la ultima transaccion realizada 
+					tiempo = lineaRepository.DiferenciaEntreFecha(FechaHasta, transacionactual.getDFecha());
+				}
+				
+				
 			}
 			
 			
@@ -242,13 +296,13 @@ public class LineaService implements ILineaService, Serializable{
 
 				case "Nominal":
 					
-					resultado = Math.pow(mtotal*(1+(ValorTasa/ResultadoM)), (tiempo/Capitalizacion))   ;
+					resultado = mtotal*Math.pow((1+(ValorTasa/ResultadoM)), (tiempo/Capitalizacion))   ;
 					
 					break;
 					
 				case "Efectiva":
 					
-					resultado = Math.pow(mtotal*(1+ValorTasa), ((tiempo/Capitalizacion)/ResultadoM))   ;
+					resultado = mtotal*Math.pow((1+ValorTasa), ((tiempo/Capitalizacion)/ResultadoM))   ;
 					
 					break;
 					
@@ -261,7 +315,7 @@ public class LineaService implements ILineaService, Serializable{
 				DeudasTotales=DeudasTotales+m;
 				
 				
-				
+				System.out.println("Del calculo de tasa cuando hay deuda: Resultado= " + resultado + ", m= "+m+" DeudasTotales");
 				 
 				
 			} else {
@@ -278,13 +332,13 @@ public class LineaService implements ILineaService, Serializable{
 
 				case "Nominal":
 					
-					resultado = Math.pow(mtotal*(1+(ValorTasa/ResultadoM)), (tiempo/Capitalizacion))   ;
+					resultado = mtotal*Math.pow((1+(ValorTasa/ResultadoM)), (tiempo/Capitalizacion))   ;
 					
 					break;
 					
 				case "Efectiva":
 					
-					resultado = Math.pow(mtotal*(1+ValorTasa), ((tiempo/Capitalizacion)/ResultadoM))   ;
+					resultado = mtotal*Math.pow((1+ValorTasa), ((tiempo/Capitalizacion)/ResultadoM))   ;
 					
 					break;
 					
@@ -297,7 +351,7 @@ public class LineaService implements ILineaService, Serializable{
 				PagoTotal=PagoTotal+m;
 				
 				
-				
+				System.out.println("Del calculo de tasa cuando hay pago: Resultado= " + resultado + ", m= "+m+" DeudasTotales");
 				
 			}
 			
@@ -313,24 +367,36 @@ public class LineaService implements ILineaService, Serializable{
 		}
 		
 		
-		//Si supera el limite su tarjeta de credito
-		if (mtotal>=Limite) {
+		if (mtotal<=0) {
 			
-			respuestadesistema.setCreditoDisponible(0);
-			respuestadesistema.setDeudaTotal(mtotal);
-			respuestadesistema.setDeudaTotalSinIntereses(DeudasTotales-PagoTotal);
-			respuestadesistema.setInteresesGenerados(mtotal - (DeudasTotales - PagoTotal));
+			respuestadesistema.setCreditoDisponible(Limite);
+			respuestadesistema.setDeudaTotal(0);
+			respuestadesistema.setDeudaTotalSinIntereses(0);
+			respuestadesistema.setInteresesGenerados(0);
+
+			LineaEncontradaDeCliente.setDFechaCierre(null);
+			LineaEncontradaDeCliente.setDUltimoDiaDePago(null);
+		
+			transaccionRepository.borrarTodasLasTransaccionesDeLinea(LineaEncontradaDeCliente);
+			System.out.println("-----El mtotal es igual a 0");
+		} 
+		else {
 			
 			
-			
-		}else {
-			
+			System.out.println("El mtotal es: " + mtotal);
 			respuestadesistema.setCreditoDisponible(Limite-mtotal);
 			respuestadesistema.setDeudaTotal(mtotal);
 			respuestadesistema.setDeudaTotalSinIntereses( DeudasTotales-PagoTotal);
 			respuestadesistema.setInteresesGenerados(mtotal - (DeudasTotales - PagoTotal));
 			
+			//Guarda la DeudaTotal en la Linea del cliente
+			LineaEncontradaDeCliente.setDeudaTotal((float)respuestadesistema.getDeudaTotal());
 			
+			lineaRepository.save(LineaEncontradaDeCliente);
+			
+			System.out.println("DeudaTotal: " + LineaEncontradaDeCliente.getDeudaTotal());
+			
+			System.out.println("---------El mtotal es menor al limite");
 		}
 		
 		
@@ -345,6 +411,29 @@ public class LineaService implements ILineaService, Serializable{
 		
 		
 		return respuestadesistema;
+	}
+
+
+	@Override
+	public Linea encontrarLineaDeCliente(Cliente cliente) {
+		// TODO Auto-generated method stub
+		return lineaRepository.findByCliente(cliente);
+	}
+
+
+	@Override
+	public void cancelarDeuda(Linea lineaencontrada) {
+		// TODO Auto-generated method stub
+		
+		lineaencontrada.setDeudaTotal(0);
+		lineaencontrada.setDFechaCierre(null);
+		lineaencontrada.setDUltimoDiaDePago(null);
+		
+		Cliente clientedelalinea = lineaencontrada.getCliente();
+		clientedelalinea.setBEstado(true);
+		clienteRepository.save(clientedelalinea);
+		
+		transaccionRepository.borrarTodasLasTransaccionesDeLinea(lineaencontrada);
 	}
 
 	

@@ -56,12 +56,16 @@ public class HomeController {
 	@GetMapping("/")
 	public String home(Model model, HttpSession session) {
 		
-		return "dashboard";
+		model.addAttribute("administrador", new Administrador());
+		
+		
+		return "login";
 	}
 	
 	@GetMapping("/clientes")
 	public String MostrarClientes(Model model) {
 		
+		model.addAttribute("HastaFecha", new Date());
 		model.addAttribute("cliente", new Cliente());
 		model.addAttribute("listadoClientes", clienteService.findAll());
 		
@@ -71,6 +75,11 @@ public class HomeController {
 	@GetMapping("/dashboard")
 	public String MostrarDashboard(Model model, HttpSession session) {
 		
+		model.addAttribute("cantidadClientes", clienteService.cantidadClientes());
+		
+		model.addAttribute("cantidadClientesDeudores", clienteService.cantidadClientesDeudores());
+		
+		model.addAttribute("cliente", new Cliente());
 		return "dashboard";
 	}
 	

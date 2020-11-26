@@ -79,5 +79,23 @@ public class AdministradorService implements IAdministradorService, Serializable
 	}
 
 
+	@Override
+	public int validarAdministrador(Administrador administrador) {
+		// TODO Auto-generated method stub
+		
+		Administrador administradorEncontrado=administradorRepository.encontrarAdministradorUnico();
+		
+		if (administradorEncontrado.getNCorreo().equals(administradorEncontrado.getNCorreo()) && administradorEncontrado.getNContrasenia().equals(administradorEncontrado.getNContrasenia())) {
+			return 1;
+		} else {
+			
+			return 0;
+		}
+		
+		
+		
+	}
+
+
 
 }

@@ -1,6 +1,8 @@
 package pe.upc.finanzas.repository;
 
 
+import java.util.List;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -27,6 +29,16 @@ public interface IClienteRepository extends JpaRepository<Cliente, Long>{
 	@Query("select e from Cliente e where e.numDNI = :numDNI")
 	public Cliente findByNumDNI(@Param("numDNI")String numDNI);
 	
+//	@Query("select e from Cliente e where e.numDNI = :numDNI")
+//	public List<Cliente> encontrarClientesDeudores(@Param("FechaActual")Date FechaActual);
 	
+	@Query("select e from Cliente e where e.Linea = :Linea")
+	public Cliente encontrarClientePorLinea (@Param("Linea")Linea Linea);
+	
+	@Query("select count(e.CCliente) from Cliente e")
+	public int cantidadClientes();
+	
+	@Query("select count(e.CCliente) from Cliente e  where e.BEstado = false")
+	public int cantidadClientesDeudores();
 	
 }

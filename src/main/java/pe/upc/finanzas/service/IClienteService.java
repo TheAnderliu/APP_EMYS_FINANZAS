@@ -1,6 +1,7 @@
 package pe.upc.finanzas.service;
 
 
+import java.util.Date;
 import java.util.List;
 
 import pe.upc.finanzas.entity.Cliente;
@@ -20,4 +21,10 @@ public interface IClienteService {
 	public Cliente findByNumTelefono(int NumTelefono);
 	
 	public Cliente findByNumDNI(String NumDNI);
+	
+	public List<Cliente> encontrarClientesDeudores(Date FechaActual);
+	
+	public int cantidadClientes();
+	
+	public int cantidadClientesDeudores();
 }
