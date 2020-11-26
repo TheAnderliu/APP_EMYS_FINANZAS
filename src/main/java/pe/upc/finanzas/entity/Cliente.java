@@ -1,50 +1,60 @@
 package pe.upc.finanzas.entity;
 
 
+import java.io.Serializable;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 
 
 @Entity
 @Table(name = "Cliente")
-public class Cliente {
+public class Cliente implements Serializable{
 	
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "id")
+	@Column(name = "CCliente")
 	private Long CCliente;
 	
 
 	@NotEmpty(message = "Debe ingresar apellidos*")
-	@Column(name="apellidos", length = 50, nullable=false)
+	@Column(name="NApellido", length = 50, nullable=false)
 	private String NApellido;
 	
 
 	@NotEmpty(message = "Debe ingresar nombres*")
-	@Column(name="nombres", length=50, nullable=false)
+	@Column(name="NNombre", length=50, nullable=false)
 	private String NNombre;
 	
 	@Size(min = 8, max = 8)
 	@NotEmpty(message = "Debe ingresar DNI")
-	@Column(name="numero_dni", nullable=false, length = 8)
-	private String NumDNI;
+	@Column(name="numDNI", nullable=false, length = 8)
+	private String numDNI;
 	
-	@NotEmpty(message = "Debe ingresar un número de teléfono")
-	@Column(name="numero_telefono", nullable=false)
-	private int NumTelefono;
+	@NotNull(message = "Debe ingresar un número de teléfono")
+	@Column(name="numTelefono", nullable=false)
+	private int numTelefono;
 	
 	
-	@Column(name="estado_cliente", nullable=false)
+	@Column(name="BEstado", nullable=false)
 	private boolean BEstado;
 	
 	/*
@@ -53,11 +63,12 @@ public class Cliente {
     private Linea Linea;
 	*/
 	
-	@OneToOne(mappedBy = "Cliente", cascade = CascadeType.ALL)
+	@OneToOne(mappedBy = "Cliente", fetch= FetchType.LAZY )
 	private Linea Linea;
 	
 	public Cliente() {
 		this.BEstado=true;
+		
 	}
 	
 	
@@ -95,21 +106,27 @@ public class Cliente {
 		NNombre = nNombre;
 	}
 
+
+
 	public String getNumDNI() {
-		return NumDNI;
+		return numDNI;
 	}
+
 
 	public void setNumDNI(String numDNI) {
-		NumDNI = numDNI;
+		this.numDNI = numDNI;
 	}
+
 
 	public int getNumTelefono() {
-		return NumTelefono;
+		return numTelefono;
 	}
 
+
 	public void setNumTelefono(int numTelefono) {
-		NumTelefono = numTelefono;
+		this.numTelefono = numTelefono;
 	}
+
 
 	public boolean isBEstado() {
 		return BEstado;
@@ -118,6 +135,9 @@ public class Cliente {
 	public void setBEstado(boolean bEstado) {
 		BEstado = bEstado;
 	}
+
+
+	
 	
 	
 

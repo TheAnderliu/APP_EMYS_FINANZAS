@@ -1,5 +1,6 @@
 package pe.upc.finanzas.entity;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,24 +17,30 @@ import javax.validation.constraints.NotEmpty;
 
 @Entity
 @Table(name = "Administrador")
-public class Administrador {
+public class Administrador implements Serializable {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "id")
+	/*@GeneratedValue(strategy = GenerationType.IDENTITY)*/
+	@Column(name = "CAdministrador")
 	private Long CAdministrador;
 	
 	
-	@Column(name="nombres_apellidos", length = 50, nullable=false)
+	@Column(name="NAdministrador", length = 50, nullable=false)
 	private String NAdministrador;
 	
 	@NotEmpty(message = "Debe Ingresar correo eletrónico*")
 	@Email(message = "Ingrese un verdadero correo electrónico*")
-	@Column(name="correo_electronico", length=30, nullable=false)
+	@Column(name="NCorreo", length=30, nullable=false)
 	private String NCorreo;
 	
 	@NotEmpty(message = "Debe ingresar contraseña*")
-	@Column(name="contraseña", length=10, nullable=false)
+	@Column(name="NContrasenia", length=10, nullable=false)
 	private String NContrasenia;
 	
 	@OneToMany(mappedBy = "Administrador", cascade = CascadeType.ALL)
@@ -41,6 +48,12 @@ public class Administrador {
 	
 	
 	public Administrador() {
+		
+		CAdministrador=(long)2;
+		NAdministrador="George Gutierrez";
+		NCorreo="huneterhot@gmail.com";
+		NContrasenia="123";
+		
 		
 		LineaCreditos=new ArrayList<Linea>();
 	}

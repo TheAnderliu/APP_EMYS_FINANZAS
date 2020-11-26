@@ -1,30 +1,34 @@
 package pe.upc.finanzas.entity;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
+
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
 @Table(name = "TipoMantenimiento")
-public class TipoMantenimiento {
+public class TipoMantenimiento implements Serializable{
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "id")
+	@Column(name = "CTipoMantenimiento")
 	private Long CTipoMantenimiento;
 	
-	@Column(name="nombre_tipo_mantenimiento", nullable=false)
+	@Column(name="NTipoMantenimiento", nullable=false)
 	private String NTipoMantenimiento;
 	
-	@Column(name ="numero_tipo_mantenimiento", nullable=false)
+	@Column(name ="NumTipoMantenimiento", nullable=false)
 	private int NumTipoMantenimiento;
 	
 	@OneToMany(mappedBy = "TipoMantenimiento", cascade = CascadeType.ALL)

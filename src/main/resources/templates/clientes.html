@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5"
+      lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>Clientes - EMYS</title>
+    <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i">
+    <link rel="stylesheet" href="assets/fonts/fontawesome-all.min.css">
+    <link rel="stylesheet" href="assets/fonts/font-awesome.min.css">
+    <link rel="stylesheet" href="assets/fonts/material-icons.min.css">
+    <link rel="stylesheet" href="assets/fonts/fontawesome5-overrides.min.css">
+</head>
+
+<body id="page-top">
+    <div data-toggle="tooltip" data-bs-tooltip="" id="wrapper">
+        <nav class="navbar navbar-dark sticky-top d-flex d-lg-flex align-items-start align-items-lg-start sidebar sidebar-dark accordion bg-gradient-primary p-0">
+            <div class="container d-flex flex-column p-0">
+                <a class="navbar-brand d-flex justify-content-center align-items-center sidebar-brand m-0" href="#" style="background-color: #ffffff;color: rgb(231,37,13);">
+                    <div class="sidebar-brand-icon rotate-n-15"><img src="assets/img/emys2020-svg.svg" style="width: 31px;height: 31px;"></div>
+                    <div class="sidebar-brand-text mx-3"><span style="font-size: 20px;color: rgb(238,168,62);">EMYS</span></div>
+                </a>
+                <hr class="sidebar-divider my-0">
+                <ul class="nav navbar-nav text-light" id="accordionSidebar">
+                    <li class="nav-item" role="presentation"><a class="nav-link" th:href="@{/dashboard}"><i class="fas fa-tachometer-alt"></i><span>Dashboard</span></a></li>
+                    <li class="nav-item" role="presentation"></li>
+                    <li class="nav-item" role="presentation"><a class="nav-link" th:href="@{/registrarcliente}"><i class="fas fa-file-signature"></i><span>Registrar Cliente</span></a></li>
+                    <li class="nav-item" role="presentation"><a class="nav-link" th:href="@{/registrarlineadecredito}"><i class="fas fa-file-signature"></i><span>Registrar Línea de Crédito</span></a></li>
+                    <li class="nav-item" role="presentation"><a class="nav-link" th:href="@{/registrartransaccion}"><i class="material-icons">monetization_on</i><span>Registrar Transacción</span></a></li>
+                    <li class="nav-item" role="presentation"><a class="nav-link active" th:href="@{/clientes}"><i class="fas fa-users" style="margin: -2px;"></i><span style="margin: 6px;">Clientes</span></a></li>
+                </ul>
+                <div class="text-center d-none d-md-inline"><button class="btn rounded-circle border-0" id="sidebarToggle" type="button"></button></div>
+            </div>
+        </nav>
+        <div id="content-wrapper">
+            <div id="content">
+                <nav class="navbar navbar-light navbar-expand bg-white shadow mb-4 topbar static-top">
+                    <div class="container-fluid"><button class="btn btn-link d-md-none rounded-circle mr-3" id="sidebarToggleTop" type="button"><i class="fas fa-bars"></i></button>
+                        
+                        <ul class="nav navbar-nav flex-nowrap ml-auto">
+                            <li class="nav-item dropdown d-sm-none no-arrow"><a class="dropdown-toggle nav-link" data-toggle="dropdown" aria-expanded="false" href="#"><i class="fas fa-search"></i></a>
+                                <div class="dropdown-menu dropdown-menu-right p-3 animated--grow-in" role="menu" aria-labelledby="searchDropdown">
+                                    <form class="form-inline mr-auto navbar-search w-100">
+                                        <div class="input-group"><input class="bg-light form-control border-0 small" type="text" placeholder="Search for ...">
+                                            <div class="input-group-append"><button class="btn btn-primary py-0" type="button"><i class="fas fa-search"></i></button></div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </li>
+                            <div class="d-none d-sm-block topbar-divider"></div>
+                            <li class="nav-item dropdown no-arrow" role="presentation">
+                                <div class="nav-item dropdown no-arrow"><a class="dropdown-toggle nav-link" data-toggle="dropdown" aria-expanded="false" href="#"><span class="d-none d-lg-inline mr-2 text-gray-600 small">Admin Emys</span><i class="fa fa-user-circle" style="font-size: 26px;"></i></a>
+                                    <div
+                                        class="dropdown-menu shadow dropdown-menu-right animated--grow-in" role="menu"><a class="dropdown-item" role="presentation" href="#"><i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>&nbsp;Cerrar sesión</a></div>
+                    </div>
+                    </li>
+                    </ul>
+            </div>
+            </nav>
+            <div class="container-fluid">
+                <div class="d-sm-flex justify-content-between align-items-center mb-4">
+                    <h3 class="text-dark mb-0">Clientes</h3></div>
+            </div>
+            <div class="container-fluid">
+                <div class="card shadow">
+                    <div class="card-header py-3">
+                        <p class="text-primary m-0 font-weight-bold">Lista de clientes</p>
+                        
+                    </div>
+                    <div class="card-body">
+                       
+                        <div class="table-responsive table mt-2" id="dataTable" role="grid" aria-describedby="dataTable_info">
+                            <table class="table dataTable my-0" id="dataTable">
+                                <thead>
+                                    <tr>
+                                        <th class="text-left" style="width: 76px;">ID</th>
+                                        <th style="width: 220px;">NOMBRES</th>
+                                        <th style="width: 220px;">APELLIDOS</th>
+                                        <th style="width: 146px;">DNI</th>
+                                        <th class="text-center" style="width: 137px;">TELEFONO</th>
+                                        <th class="text-center" style="width: 124px;">ESTADO</th>
+                                        <th class="text-center" style="width: 135px;">ACCION</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                
+                                    <tr th:each="cliente : ${listadoClientes}" >
+                                   
+                                    
+                                        <td th:text="${cliente.CCliente}">1</td>
+                                        
+                                        <td th:text="${cliente.NNombre}">Jorge Antonio</td>
+                                        <td th:text="${cliente.NApellido}">Terrones Huarcaya</td>
+                                        <td th:text="${cliente.numDNI}">72260854</td>
+                                        <td th:text="${cliente.numTelefono}"class="text-center">941473807</td>
+                                        <td class="text-center d-xl-flex justify-content-xl-center" style="height: 61px;">
+                                        	<span class="badge badge-success d-xl-flex justify-content-xl-center align-items-xl-center" style="height: 32px;padding-top: 4px;padding-bottom: 4px;width: 92px;" th:if="${cliente.BEstado} == true">HABILITADO</span>
+                                        	<span class="badge badge-warning d-xl-flex justify-content-xl-center align-items-xl-center" style="height: 32px;padding-top: 4px;padding-bottom: 4px;width: 92px;" th:if="${cliente.BEstado} == false">DEUDOR</span>
+                                        </td>
+                                        <td class="text-center" style="height: 61px;"> <form th:action="@{/clienteseleccionado}" method="post" th:object="${cliente}" >
+                                        <input type="hidden"  th:value="*{NNombre}" id="NNombre" name="NNombre">
+                                        <input type="hidden"  th:value="*{NApellido}" id="NApellido" name="NApellido">
+                                        <input type="hidden"  th:value="*{CCliente}" id="CCliente" name="CCliente">
+                                        <input type="hidden"  th:value="*{numDNI}" id="numDNI" name="numDNI">
+                                        <input type="hidden"  th:value="*{numTelefono}" id="numTelefono" name="numTelefono">
+                                        <input type="hidden"  th:value="*{BEstado}" id="BEstado" name="BEstado">
+                                        <input type="hidden"  th:value="*{Linea.CLinea}" id="Linea.CLinea" name="Linea.CLinea">
+                                        <input type="hidden"  th:field="${HastaFecha}"  name="HastaFecha">
+                                        <label>&nbsp;Hasta&nbsp;</label><input class="border rounded" type="date" style="font-size: 14px;color: rgb(110,112,126);height: 31px;" pattern="yy-MM-dd"  name="HastaFecha">
+                                        <input class="btn btn-primary" role="button" style="height: 33px;padding-bottom: 4px;padding-top: 4px;width: 64px;" type="submit" value="Ver"></input> </form></td>
+                                   
+                                    </tr>
+                                 
+                                </tbody>
+                            </table>
+                        </div>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div><a class="border rounded d-inline scroll-to-top" href="#page-top"><i class="fas fa-angle-up"></i></a></div>
+    <script src="assets/js/jquery.min.js"></script>
+    <script src="assets/bootstrap/js/bootstrap.min.js"></script>
+    <script src="assets/js/bs-init.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.js"></script>
+    <script src="assets/js/theme.js"></script>
+</body>
+
+</html>
